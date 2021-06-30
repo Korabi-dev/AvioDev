@@ -22,7 +22,6 @@ module.exports = {
 if(client.owners.includes(message.author.id)){
     message.isOwner = true
 }
-const disabled = ["Music"]
 message.author.addMoney = async function(type, amount){
     if(!type || !amount || typeof(type) != "string" || typeof(amount) != "number") throw new SyntaxError("message.author.addMoney, Invalid arguments.")
    type = type.toLowerCase()
@@ -393,7 +392,6 @@ let [commandName, ...args] = message.content
             if(command.owner && message.isOwner == false) {
                 return message.reply(client.embed("This command is owner only."))
             } else {
-                if(disabled.includes(command.category) && message.isOwner == false) return message.reply(client.embed("Command Disabled.", "This command has been disabled because it is either still being developed or its broken at the moment."))
               
                 if(command.guild && !message.guild){
                     return message.reply(client.embed("Error", "You can't use this command in dms."))

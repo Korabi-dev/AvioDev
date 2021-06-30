@@ -11,7 +11,7 @@ client.maincolor = maincolor
 const config = require("../src/config.json")
 const mongoose = require("mongoose")
 
-client.owners = ["638476135457357849", "764901658303922247"]
+client.owners = ["638476135457357849", "764901658303922247", "705843647287132200"]
 client.models = require("../Utils/models")
 client.timeouts = new discord.Collection()
 client.manager = new Manager({
