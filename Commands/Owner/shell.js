@@ -11,7 +11,7 @@ module.exports = {
     await exec(args.all, (err, stdout, stderr) => {
         if(err) return message.reply(client.embed("Shell FeedBack (Error)", `\`\`\`shell\n${err}\n\`\`\``))
         if(stdout) return message.reply(client.embed("Shell FeedBack (Stdout)", `\`\`\`shell\n${stdout}\n\`\`\``))
-        if(stderr) return message.reply("Shell FeedBack (Stderr)", `\`\`\`shell\n${stderr}\n\`\`\``)
+        if(stderr) return message.reply(client.embed("Shell FeedBack (Stderr)", `\`\`\`shell\n${stderr}\n\`\`\``))
     })
     }
 }
