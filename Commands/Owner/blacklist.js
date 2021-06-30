@@ -4,7 +4,7 @@ module.exports = {
         let user = args[0]
         if(!user) return message.reply(client.embed("Error", "You must provide a user."))
 
-        const d = await client.models.blacklist.findOne({user: user})
+        const d = await client.models.blacklist.findOne({user: user});
 
         if(d){
             if(d.active == true) return message.reply(client.embed("Error", "This user is already blacklisted."))
