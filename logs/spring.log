@@ -1,0 +1,4 @@
+2021-06-30 16:13:18.176  INFO 9264 --- [XNIO-1 I/O-3] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:54430 -- CloseStatus[code=1006, reason=]
+2021-06-30 16:13:18.193  INFO 9264 --- [XNIO-1 I/O-3] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-06-30 16:13:20.120  INFO 9264 --- [XNIO-1 task-5] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:59297
+2021-06-30 16:13:20.150  INFO 9264 --- [XNIO-1 task-5] lavalink.server.io.SocketServer          : Connection successfully established from /127.0.0.1:59297
