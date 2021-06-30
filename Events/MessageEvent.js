@@ -19,9 +19,12 @@ module.exports = {
         let b = rg.test(str)
         if(b == false) return;
         message.isOwner = false
+        message.author.isBlacklisted = false
 if(client.owners.includes(message.author.id)){
     message.isOwner = true
 }
+
+
 message.author.addMoney = async function(type, amount){
     if(!type || !amount || typeof(type) != "string" || typeof(amount) != "number") throw new SyntaxError("message.author.addMoney, Invalid arguments.")
    type = type.toLowerCase()
@@ -385,10 +388,14 @@ let [commandName, ...args] = message.content
               if(best[0]){
                   command = client.commands.get(best[0]) || client.commands.find((cmd) => cmd.aliases?.includes(best[0]));
               }
-        
+            
         if(!command) {
             return message.reply(client.embed("Error", "Invalid Command."), {mention: true})
              } else {
+                const d = await client.models.blacklist.findOne({user: message.author.id})
+                if(d && message.isOwner == false){
+                    if(d.active == true) return message.reply(client.embed("Error", `You are blacklisted from using ${client.user.username}.`).setColor("RED"))
+                } 
             if(command.owner && message.isOwner == false) {
                 return message.reply(client.embed("This command is owner only."))
             } else {

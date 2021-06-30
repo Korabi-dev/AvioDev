@@ -60,3 +60,10 @@ guild: String,
 })
 
 exports.suggestion = model("suggestion", schema)
+
+schema = Schema({
+    user: String,
+    active: Boolean
+})
+
+exports.blacklist = model("blacklist", schema)
