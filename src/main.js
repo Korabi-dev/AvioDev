@@ -10,7 +10,8 @@ let maincolor = "#7289d5";
 client.maincolor = maincolor
 const config = require("../src/config.json")
 const mongoose = require("mongoose")
-
+let cmds = 0
+let events = 0
 client.owners = ["638476135457357849", "764901658303922247", "705843647287132200"]
 client.models = require("../Utils/models")
 client.timeouts = new discord.Collection()
@@ -99,6 +100,7 @@ for(const folder of folders){
         if(!command.name) {command.name = file.toLowerCase().replace(".js", "")};
         client.commands.set(command.name, command)
         console.log("Loaded Command:", command.name)
+        cmds = cmds + 1
     };
 };
 };
@@ -130,6 +132,7 @@ for (const file of eventFiles) {
 	} else {
 		client.on(event.name, (...args) => event.run(...args,client));
     }
+    events = events + 1
     console.log(`Loaded Event: ${event.name}`)
 }
 }
@@ -147,5 +150,6 @@ const adminUtil = connection.db.admin()
 client.login(config.token).then(callback => {
     client.loadCommands()
     client.loadEvents()
+    console.log(`There are ${cmds} commands, and ${events} events that have been loaded.`)
     console.log("Client is logged in!")
 })

@@ -1,5 +1,6 @@
 const { exec }= require("child_process")
 module.exports = {
+    name: "functions",
     isnotevent: true,
    run: async(code, client) => {
        global.execute = function(c){

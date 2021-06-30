@@ -385,7 +385,7 @@ let [commandName, ...args] = message.content
                   c.length * 0.4
               );
 
-              if(best[0]){
+              if(best[0] && !command){
                   command = client.commands.get(best[0]) || client.commands.find((cmd) => cmd.aliases?.includes(best[0]));
               }
             

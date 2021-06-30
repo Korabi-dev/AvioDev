@@ -1,4 +1,5 @@
 module.exports = {
+    guild: true,
     permissions: ["BAN_MEMBERS"],
     botpermissions: ["BAN_MEMBERS"],
     name: "ban",

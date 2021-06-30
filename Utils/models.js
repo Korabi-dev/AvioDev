@@ -67,3 +67,12 @@ schema = Schema({
 })
 
 exports.blacklist = model("blacklist", schema)
+
+schema = Schema({
+    user: String,
+    warns: Array,
+    guild: String,
+    current: Number
+})
+
+exports.warnings = model("warnings", schema)
