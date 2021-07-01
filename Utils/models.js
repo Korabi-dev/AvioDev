@@ -76,3 +76,24 @@ schema = Schema({
 })
 
 exports.warnings = model("warnings", schema)
+
+
+
+schema = Schema({
+    user: String,
+    channel: String,
+    guild: String,
+    messages: Array,
+    id: Number
+})
+
+exports.ticket = model("ticket", schema)
+
+
+schema = Schema({
+    guild: String,
+    current: Number,
+    allowed: Array
+})
+
+exports.guildtickets = model("guildtickets", schema)

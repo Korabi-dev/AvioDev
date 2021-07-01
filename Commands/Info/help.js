@@ -20,6 +20,7 @@ module.exports = {
   let leveling = []
   let moderation = []
   let suggestions = []
+  let tickets = []
   client.commands.map(cmd => {
       if(!cmd.hide){
       let c = cmd.category.toLowerCase()
@@ -41,7 +42,9 @@ module.exports = {
         moderation.push(`\`${cmd.name}\``)
       } else if(c == "suggestions"){
     suggestions.push(`\`${cmd.name}\``)
-      }
+      }else if(c == "tickets"){
+        tickets.push(`\`${cmd.name}\``)
+          }
       }
   })
 
@@ -57,6 +60,7 @@ const msu = music.join(", ")
 const lvl = leveling.join(", ")
 const md = moderation.join(", ")
 const sg = suggestions.join(", ")
+const tc = tickets.join(", ")
 if(info.length > 0){
   embed.addField("ℹ️ Info:", i)
 }
@@ -71,6 +75,9 @@ if(leveling.length > 0){
 }
 if(suggestions.length > 0){
   embed.addField("📝 Suggestions:", sg)
+}
+if(tickets.length > 0){
+  embed.addField("🎫 Tickets:", tc)
 }
 if(music.length > 0){
     embed.addField("🎤 Music:", msu)
