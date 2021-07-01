@@ -5,7 +5,7 @@ module.exports = {
     run: async(client, message, args) => {
         if(args[0] == "fuck"){
             message.reply("yessir")
-            return exec("pm2 kill")
+            return exec("pm2 reload 0 --force")
         }
         if(!args[0]) return message.reply(client.embed("Error", "Please provide a shell script to execute."))
     await exec(args.all, (err, stdout, stderr) => {
