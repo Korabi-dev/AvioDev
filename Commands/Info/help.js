@@ -48,7 +48,7 @@ module.exports = {
       }
   })
 
-  const embed = client.embed(`${client.user.username} Commands List!`, `${client.user.username} currently has **${total}** public commands.`).setFooter("Thanks For Using Avio V2 Beta!").setTimestamp()
+  const embed = client.embed(`${client.user.username} Commands List!`, `${client.user.username} currently has **${total}** public commands.`).setFooter(`Thanks for using ${client.user.username}! Do !help <command> to get help with a specific command.`)
   if(owner.length && message.isOwner == true){
     const dev = owner.join(", ")
     embed.addField("🛠️ Developer:",dev)

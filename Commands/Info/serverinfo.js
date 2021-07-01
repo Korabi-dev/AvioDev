@@ -33,7 +33,7 @@ module.exports = {
         });
 
 
-        const embed = client.embed("Server Info").setThumbnail(message.guild.iconURL({dynamic: true}))
+        const embed = client.embed("Server Info")
 
         embed.addField("🫂 Members:", `Total: ${members}\nOnline: ${online}\nDo Not Disturb: ${dnd}\nIdle: ${idle}\nOffline: ${offline}`, true)
         embed.addField(`🔼 Boosts:`, `Total Boosts: ${message.guild.premiumSubscriptionCount}\nBoost Level: ${message.guild.premiumTier}`, true)

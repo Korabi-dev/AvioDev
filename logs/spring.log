@@ -98,3 +98,19 @@
 2021-07-01 14:03:53.994  INFO 10208 --- [XNIO-1 I/O-2] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
 2021-07-01 14:03:57.028  INFO 10208 --- [XNIO-1 task-27] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:59435
 2021-07-01 14:03:57.034  INFO 10208 --- [XNIO-1 task-27] lavalink.server.io.SocketServer          : Connection successfully established from /127.0.0.1:59435
+2021-07-01 14:09:23.377  INFO 10208 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:59435 -- CloseStatus[code=1006, reason=]
+2021-07-01 14:09:23.377  INFO 10208 --- [XNIO-1 I/O-4] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-07-01 14:09:27.523  INFO 10208 --- [XNIO-1 task-28] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:54848
+2021-07-01 14:09:27.532  INFO 10208 --- [XNIO-1 task-28] lavalink.server.io.SocketServer          : Connection successfully established from /127.0.0.1:54848
+2021-07-01 14:09:55.672  INFO 10208 --- [XNIO-1 I/O-1] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:54848 -- CloseStatus[code=1006, reason=]
+2021-07-01 14:09:55.673  INFO 10208 --- [XNIO-1 I/O-1] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-07-01 14:09:59.194  INFO 10208 --- [XNIO-1 task-29] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:50744
+2021-07-01 14:09:59.200  INFO 10208 --- [XNIO-1 task-29] lavalink.server.io.SocketServer          : Connection successfully established from /127.0.0.1:50744
+2021-07-01 14:10:26.697  INFO 10208 --- [XNIO-1 I/O-1] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:50744 -- CloseStatus[code=1006, reason=]
+2021-07-01 14:10:26.698  INFO 10208 --- [XNIO-1 I/O-1] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-07-01 14:10:30.434  INFO 10208 --- [XNIO-1 task-30] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:50303
+2021-07-01 14:10:30.439  INFO 10208 --- [XNIO-1 task-30] lavalink.server.io.SocketServer          : Connection successfully established from /127.0.0.1:50303
+2021-07-01 14:16:14.345  INFO 10208 --- [XNIO-1 I/O-4] lavalink.server.io.SocketServer          : Connection closed from /127.0.0.1:50303 -- CloseStatus[code=1006, reason=]
+2021-07-01 14:16:14.346  INFO 10208 --- [XNIO-1 I/O-4] lavalink.server.io.SocketContext         : Shutting down 0 playing players.
+2021-07-01 14:16:17.970  INFO 10208 --- [XNIO-1 task-31] l.server.io.HandshakeInterceptorImpl     : Incoming connection from /127.0.0.1:51412
+2021-07-01 14:16:17.976  INFO 10208 --- [XNIO-1 task-31] lavalink.server.io.SocketServer          : Connection successfully established from /127.0.0.1:51412
