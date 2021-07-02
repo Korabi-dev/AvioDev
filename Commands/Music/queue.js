@@ -1,6 +1,7 @@
 const ms = require("ms")
 
 module.exports = {
+    aliases: ["q"],
     guild: true,
     run: async(client, message, args) => {
         if (!message.member || !message.member.voice.channel) return message.reply(client.embed("Error", "You need to be in a voice channel in order to use this command."))

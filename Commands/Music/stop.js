@@ -1,6 +1,6 @@
   
 module.exports = {
-    aliases: ['leave', "end"],
+    aliases: ['leave', "end", "l"],
     guild: true,
     run: async(client, message, args) => {
         if (!message.member || !message.member.voice.channel) return message.reply(client.embed("Error", "You need to be in a voice channel in order to use this command."))

@@ -1,4 +1,5 @@
 module.exports = {
+    aliases: ["s"],
     guild: true,
     run: async(client, message, args) => {
         const player = client.manager.players.get(message.guild.id);

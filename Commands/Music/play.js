@@ -1,6 +1,7 @@
 const { MessageButton, MessageActionRow } = require("discord-buttons");
 const { MessageEmbed } = require("discord.js");
 module.exports = {
+  aliases: ["p"],
     guild: true,
     run: async(client, message, args) => {
         if (!message.member || !message.member.voice.channel) return message.reply(client.embed("Error", "You need to be in a voice channel in order to use this command."))
