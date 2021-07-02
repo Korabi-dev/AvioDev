@@ -8,6 +8,7 @@ require("discord-buttons")(client)
 const fs = require("fs");
 let maincolor = "#7289d5";
 client.maincolor = maincolor
+client.prefix = "!"
 const config = require("../src/config.json")
 const mongoose = require("mongoose")
 const { exec } = require("child_process")

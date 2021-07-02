@@ -1,11 +1,10 @@
 const mongoose = require("mongoose")
-const { Collection } = require("discord.js")
 let { profile } = require("../Utils/models")
 const models = require("../Utils/models")
 module.exports = {
     name: "message",
     run: async(message, client) => {
-       let prefix = "av!"
+       let prefix =  client.prefix
         if(message.guild){
        const newp = await models.prefix.findOne({guild: message.guild.id})
        if(newp){
