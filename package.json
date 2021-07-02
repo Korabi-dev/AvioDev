@@ -4,7 +4,7 @@
   "description": "A discord  bot",
   "main": "src/main.js",
   "scripts": {
-    "start": "pm2 kill && pm2 start src/main.js && pm2 start src/start.js && pm2 logs"
+    "start": "pm2 kill && pm2 start src/main.js && pm2 logs"
   },
   "keywords": [
     "Discord",

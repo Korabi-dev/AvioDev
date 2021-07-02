@@ -10,11 +10,14 @@ let maincolor = "#7289d5";
 client.maincolor = maincolor
 const config = require("../src/config.json")
 const mongoose = require("mongoose")
+const { exec } = require("child_process")
 let cmds = 0
 let events = 0
 client.owners = ["638476135457357849", "764901658303922247", "705843647287132200"]
 client.models = require("../Utils/models")
 client.timeouts = new discord.Collection()
+const manager_start = async() => {
+  await exec("java -jar Lavalink.jar")
 client.manager = new Manager({
     nodes: [{ "host": "localhost", "port": 1000, "password": "avio2music" }],
     plugins: [
@@ -30,35 +33,33 @@ client.manager = new Manager({
   });
 
 client.manager.init("855057364032684092")
-  client.on("raw",(d) => {client.manager.updateVoiceState(d)});
+client.on("raw",(d) => {client.manager.updateVoiceState(d)});
 
-  client.manager.on("nodeConnect", (node) =>
-  console.log(`Node ${node.options.identifier} has been connected.`)
+client.manager.on("nodeConnect", (node) =>
+console.log(`The lavalink server has started.`)
 );
-
-client.manager.on("nodeError", (node, error) =>
-  console.log(`Node: ${node.options.identifier} had an error || ${error.message}`)
-);
-
 client.manager.on("queueEnd", (player) => {
-    const embed = client.embed("Music System", `Queue ended, I left the voice channel.`)
-  
-    client.channels.cache
-      .get(player.textChannel)
-      .send(embed);
-  
-    player.destroy();
-  });
+  const embed = client.embed("Music System", `Queue ended, I left the voice channel.`)
 
-  client.manager.on("trackStart", (player, track) => {
-    if(player.trackRepeat == false && player.queueRepeat == false){
-    const channel = client.channels.cache.get(player.textChannel);
-  
-    const embed = client.embed("Music system", `Now playing [${track.title}](${track.uri}) - \`${track.author}\``).setThumbnail(track.thumbnail)
-  
-    channel.send(embed)
-    }
-  })
+  client.channels.cache
+    .get(player.textChannel)
+    .send(embed);
+
+  player.destroy();
+});
+
+client.manager.on("trackStart", (player, track) => {
+  if(player.trackRepeat == false && player.queueRepeat == false){
+  const channel = client.channels.cache.get(player.textChannel);
+
+  const embed = client.embed("Music system", `Now playing [${track.title}](${track.uri}) - \`${track.author}\``).setThumbnail(track.thumbnail)
+
+  channel.send(embed)
+  }
+})
+
+}
+manager_start()
 
 
 

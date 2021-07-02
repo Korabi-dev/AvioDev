@@ -33,12 +33,12 @@ sentry:
 #    some_key: some_value
 #    another_key: another_value
 
-logging:
-  file:
-    max-history: 1
-    max-size: 1MB
-  path: ./logs/
+# logging:
+  #file:
+   # max-history: null
+    #max-size: null
+  #path: null 
 
-  level:
-    root: INFO
-    lavalink: INFO
+  #level:
+   # root: null
+    #lavalink: null
