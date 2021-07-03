@@ -21,7 +21,10 @@ module.exports = {
   let moderation = []
   let suggestions = []
   let tickets = []
+  let fun = []
+  let all = []
   client.commands.map(cmd => {
+    all.push(cmd)
       if(!cmd.hide){
       let c = cmd.category.toLowerCase()
       if(c == "info"){
@@ -44,7 +47,9 @@ module.exports = {
     suggestions.push(`\`${cmd.name}\``)
       }else if(c == "tickets"){
         tickets.push(`\`${cmd.name}\``)
-          }
+          }else if(c == "fun"){
+            fun.push(`\`${cmd.name}\``)
+              }
       }
   })
 
@@ -61,11 +66,15 @@ const lvl = leveling.join(", ")
 const md = moderation.join(", ")
 const sg = suggestions.join(", ")
 const tc = tickets.join(", ")
+const fn = fun.join(", ")
 if(info.length > 0){
   embed.addField("ℹ️ Info:", i)
 }
 if(moderation.length > 0){
   embed.addField("🛡️ Moderation:", md)
+}
+if(fun.length > 0){
+  embed.addField("🎡 Fun:", fn)
 }
 if(economy.length > 0){
 embed.addField("💰 Economy:", ec)
@@ -86,10 +95,10 @@ if(utility.length > 0){
     embed.addField("🔨 Utility:", ut)
 }
 
-if(economy.length < 1 && owner.length < 1 && info.length < 1){
-    return message.noMentionReply(client.embed("Error", "No commands found."))
+if(all.length < 1){
+    return message.reply(client.embed("Error", "No commands found."))
 }
-message.noMentionReply(embed)
+message.reply(embed)
       } else{
         const commandName = args[0].toLowerCase()
         var command =

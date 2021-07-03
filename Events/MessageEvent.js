@@ -11,8 +11,7 @@ module.exports = {
          prefix = newp.prefix
        }
     }
-        require("./globalFunctions").run()
-        if(message.author.bot || !message.content.startsWith(prefix) || message.content == prefix) return;
+        if(message.author.bot || !message.content.startsWith(prefix) || message.content == prefix || !message.guild.me.hasPermission("SEND_MESSAGES") || !message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return;
         let rg = /[a-zA-Z]/g;
         let str = String(message.content)
         let b = rg.test(str)
@@ -413,7 +412,14 @@ let [commandName, ...args] = message.content
                             if(!message?.guild.me.permissions.has(command.botpermissions[p])) return message.reply(client.embed("Missing Permissions", `I need the \`${command.botpermissions[p].replace("_", " ")}\` permission for this command to work.`))
                         }
                     }
-                    command.run(client, message, args)
+                    try{
+                   await command.run(client, message, args)
+                    }catch(e){
+                        const channel = client.channels.cache.get("860961529390039050")
+                        const embed = client.embed("Error", ` Message:\n\`\`\`js\n${require("util").inspect(e)}\`\`\`\nCommand: \`\`\`${command.name}\`\`\`\nUser: \`\`\`${message.author.tag}\`\`\`\nUser ID: \`\`\`${message.author.id}\`\`\`\nDev | Owner: \`\`\`${message.isOwner ? "Yes" : "No"}\`\`\`\nGuild: \`\`\`${message.guild}\`\`\`\nGuild ID: \`\`\`${message.guild.id}\`\`\` `).setTimestamp()
+                        channel.send(embed)
+                        message.reply(client.embed("Error (Developer Level)", `Error:\n\n\`\`\`js\n${require("util").inspect(e)}\n\`\`\`\n\nCommand: ${command.name}`).setFooter("Please report this to a developer."))
+                    }
                     const data = await profile.findOne({user: message.author.id})
                     if(data){
                         

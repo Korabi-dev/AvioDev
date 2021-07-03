@@ -7,7 +7,6 @@
     "start": "pm2 kill && pm2 start src/main.js && pm2 logs"
   },
   "keywords": [
-    "Discord",
     "Bot"
   ],
   "author": "Korab Arifi",
@@ -28,6 +27,7 @@
     "erela.js-spotify": "^1.2.0",
     "ffmpeg-static": "^4.4.0",
     "github-userinfo": "^1.0.1",
+    "imageapi.js": "^1.7.0",
     "iso-language-converter": "^1.1.0",
     "leven": "^3.1.0",
     "mongo": "^0.1.0",

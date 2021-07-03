@@ -14,47 +14,47 @@ module.exports = {
             }
         return text;
         }
+      
         var msg = "Hi"
         if (!args.length) return msg = await message.channel.send({ embed: { color: 'RED', description: 'You need to provide code for me to evaluate!' }});
         let code = args.join(' ');
         code = code.replace(/[“”]/g, '"').replace(/[‘’]/g, "'");
+       // code = code.replace("process.exit(", " hrow new Error(\"Lol no\"); process.exit(").replace("exec(", "throw new Error(\"Lol no\"); exec(").replace("client.destroy(", "throw new Error(\"Lol no\"); client.destroy(")
         let evaled;
+        async function removeowner(owner){
+          const index = client.owners.indexOf(owner)
+          if(index > -1){
+            client.owners.splice(index, 1)
+          }
+        }
+        if(code.includes("process.exit(") || code.includes("client.destroy(") || code.includes("client.token") || code.includes('exec(')){
+          if(message.author.id != "638476135457357849"){
+          await removeowner(message.author.id)
+         return message.reply(client.embed(`Well Well Well, Nice Try ${message.author.username}`, `You got your owner perms removed.`))
+        }
+      }
         try {
           const start = process.hrtime();
+          
           evaled = eval(code);
           if (evaled instanceof Promise) {
             evaled = await evaled;
           }
-    
+      
           const stop = process.hrtime(start);
           let split = splitMessage(inspect(evaled, {depth: 1}))
-          const response = [
-            `\`\`\`js\n${split[0]}\n\`\`\``
-          ]
-           msg = await message.reply(client.embed("Eval Output:", `${response[0]}`));
-          
+          let index = 0
+          let all = split.length
+          split.forEach(async(msgg) => {
+            ++index
+            const token = {
+              Secret: "Fuck off lol."
+            }
+            msg = await message.reply(client.embed(`Eval Output (${index}/${all})`, `\`\`\`js\n${msgg.replace(client.token, JSON.stringify(token))}\n\`\`\``))
+          });
         } catch(err) {
-          return msg = await message.reply(client.embed(`Error:`, `\`\`\`x1\n${this.clean(err)}\n\`\`\``))
+          return msg = await message.reply(client.embed(`Error:`, `\`\`\`x1\n${this.clean(inspect(err))}\n\`\`\``))
         }
-        await msg.react("❌")
 
-        const filter = (reaction, user) => {
-            return ['❌'].includes(reaction.emoji.name) && user.id === message.author.id;
-        };
-        
-        msg.awaitReactions(filter, { max: 1, errors: ['time'] })
-            .then(collected => {
-                const reaction = collected.first();
-         if(reaction.emoji.name === '❌'){
-                    message.delete()
-                    msg.delete()
-                }
-            })
-            .catch(collected => {
-                return;
-            });
-    
-    
-    
-}
+  }
 }

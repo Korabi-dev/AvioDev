@@ -32,6 +32,9 @@ client.manager = new Manager({
       if (guild) guild.shard.send(payload);
     }
   });
+  Array.prototype.random = function () {
+    return this[Math.floor((Math.random()* this.length))];
+  }
 
 client.manager.init("855057364032684092")
 client.on("raw",(d) => {client.manager.updateVoiceState(d)});
@@ -61,26 +64,6 @@ client.manager.on("trackStart", (player, track) => {
 
 }
 manager_start()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 client.embed = function(t, d , f)
  {
