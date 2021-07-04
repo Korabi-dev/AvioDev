@@ -1,4 +1,4 @@
-let { Schema, model } = require("mongoose");
+let { Schema, model, mongoose } = require("mongoose");
 
 let schema = Schema({
  user: String,
@@ -97,3 +97,51 @@ schema = Schema({
 })
 
 exports.guildtickets = model("guildtickets", schema)
+
+Schema({
+    messageID: String,
+    channelID: String,
+    guildID: String,
+    startAt: Number,
+    endAt: Number,
+    ended: Boolean,
+    winnerCount: Number,
+    prize: String,
+    messages: {
+        giveaway: String,
+        giveawayEnded: String,
+        inviteToParticipate: String,
+        timeRemaining: String,
+        winMessage: String,
+        embedFooter: String,
+        noWinner: String,
+        winners: String,
+        endedAt: String,
+        hostedBy: String,
+        units: {
+            seconds: String,
+            minutes: String,
+            hours: String,
+            days: String,
+            pluralS: Boolean,
+        },
+    },
+    hostedBy: String,
+    winnerIDs: [String],
+    reaction: Schema.Types.Mixed,
+    botsCanWin: Boolean,
+    embedColor: Schema.Types.Mixed,
+    embedColorEnd: Schema.Types.Mixed,
+    exemptPermissions: [],
+    exemptMembers: String,
+    bonusEntries: String,
+    extraData: Schema.Types.Mixed,
+    lastChance: {
+        enabled: Boolean,
+        content: String,
+        threshold: Number,
+        embedColor: Schema.Types.Mixed
+    }
+});
+
+exports.giveaways = model("giveaways", schema)

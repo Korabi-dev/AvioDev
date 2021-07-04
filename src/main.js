@@ -122,16 +122,45 @@ for (const file of eventFiles) {
 }
 }
 mongoose.connect(config.mongoose, {useNewUrlParser: true, useUnifiedTopology: true,}) .then(() => {console.log("Connected to database.");});
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'Connection error:'));
+
+const giveawayModel = client.models.giveaways;
 
 
+const { GiveawaysManager } = require('discord-giveaways');
+const GiveawayManagerWithOwnDatabase = class extends GiveawaysManager {
+    async getAllGiveaways() {
+        return await giveawayModel.find({});
+    }
+    async saveGiveaway(messageID, giveawayData) {
+       const newd = new giveawayModel(giveawayData)
+       await newd.save()
+        return true;
+    }
+    async editGiveaway(messageID, giveawayData) {
+        await giveawayModel.findOneAndUpdate({ messageID: messageID }, giveawayData).exec();
+        return true;  
+    }
+    async deleteGiveaway(messageID) {
+        await giveawayModel.findOneAndDelete({ messageID: messageID }).exec();
+        return true;
+    }
+};
 
 
-async() => {
-    const connection = await mongoose.connect(config.mongoose, {useNewUrlParser: true, useUnifiedTopology: true,}) .then(() => {console.log("Connected to database.");});
-const adminUtil = connection.db.admin()
- const result = adminUtil.ping() 
- client.mongoping = result
-}
+const manager = new GiveawayManagerWithOwnDatabase(client, {
+    updateCountdownEvery: 5000,
+    default: {
+        botsCanWin: false,
+        exemptPermissions: [],
+        embedColor: client.maincolor,
+        embedColorEnd: '#FF0000',
+        reaction: '🎉'
+    }
+});
+client.giveawaysManager = manager;
+
 client.login(config.token).then(callback => {
     client.loadCommands()
     client.loadEvents()

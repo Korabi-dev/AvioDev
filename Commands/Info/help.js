@@ -22,6 +22,7 @@ module.exports = {
   let suggestions = []
   let tickets = []
   let fun = []
+  let giveaways = []
   let all = []
   client.commands.map(cmd => {
     all.push(cmd)
@@ -49,7 +50,9 @@ module.exports = {
         tickets.push(`\`${cmd.name}\``)
           }else if(c == "fun"){
             fun.push(`\`${cmd.name}\``)
-              }
+              }else if(c == "giveaways"){
+                giveaways.push(`\`${cmd.name}\``)
+                  }
       }
   })
 
@@ -67,6 +70,7 @@ const md = moderation.join(", ")
 const sg = suggestions.join(", ")
 const tc = tickets.join(", ")
 const fn = fun.join(", ")
+const gv = giveaways.join(", ")
 if(info.length > 0){
   embed.addField("ℹ️ Info:", i)
 }
@@ -75,6 +79,9 @@ if(moderation.length > 0){
 }
 if(fun.length > 0){
   embed.addField("🎡 Fun:", fn)
+}
+if(giveaways.length > 0){
+  embed.addField("🎉 Giveaways:", gv)
 }
 if(economy.length > 0){
 embed.addField("💰 Economy:", ec)
