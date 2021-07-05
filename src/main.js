@@ -121,7 +121,7 @@ for (const file of eventFiles) {
     console.log(`Loaded Event: ${event.name}`)
 }
 }
-mongoose.connect(config.mongoose, {useNewUrlParser: true, useUnifiedTopology: true,}) .then(() => {console.log("Connected to database.");});
+mongoose.connect(config.mongoose, {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }) .then(() => {console.log("Connected to database.");});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'Connection error:'));
 
@@ -134,8 +134,8 @@ const GiveawayManagerWithOwnDatabase = class extends GiveawaysManager {
         return await giveawayModel.find({});
     }
     async saveGiveaway(messageID, giveawayData) {
-       const newd = new giveawayModel(giveawayData)
-       await newd.save()
+   const d =  await giveawayModel.create(giveawayData)
+       console.log(d)
         return true;
     }
     async editGiveaway(messageID, giveawayData) {
@@ -151,6 +151,7 @@ const GiveawayManagerWithOwnDatabase = class extends GiveawaysManager {
 
 const manager = new GiveawayManagerWithOwnDatabase(client, {
     updateCountdownEvery: 5000,
+    storage: false,
     default: {
         botsCanWin: false,
         exemptPermissions: [],

@@ -5,6 +5,7 @@ module.exports = {
     name: "message",
     run: async(message, client) => {
        let prefix =  client.prefix
+       var canrun = true
         if(message.guild){
        const newp = await models.prefix.findOne({guild: message.guild.id})
        if(newp){
@@ -403,17 +404,26 @@ let [commandName, ...args] = message.content
                 } else {
                    
                     if(command.permissions){
-                        for(const perm in command.permissions){
-                             if(!message?.member.permissions.has(command.permissions[perm]) && message.isOwner == false) return message.reply(client.embed("Missing Permissions", `You need the \`${command.permissions[perm].replace("_", " ")}\` permission to use this command.`))
-                        }
+                        command.permissions.forEach(perm => {
+                            if(!message.member.hasPermission(perm) && !message.isOwner) {
+                                if(canrun == true){
+                        canrun = false  
+                            message.reply(client.embed("Missing Permissions", `You need the \`${perm.replace("_", " ")}\` permission to use this command.`)) }}
+                        })
                     }
                     if(command.botpermissions){
-                        for(const p in command.botpermissions){
-                            if(!message?.guild.me.permissions.has(command.botpermissions[p])) return message.reply(client.embed("Missing Permissions", `I need the \`${command.botpermissions[p].replace("_", " ")}\` permission for this command to work.`))
-                        }
+                        command.botpermissions.forEach(perm => {
+                            if(!message.guild.me.hasPermission(perm)) {
+                                if(canrun == true){
+                                canrun = false
+                              return   message.reply(client.embed("Missing Permissions", `I need the \`${perm.replace("_", " ")}\` permission for this command to work.`))
+                            }}
+                        })
                     }
                     try{
+                        if(canrun == true){
                    await command.run(client, message, args)
+                        }
                     }catch(e){
                         const channel = client.channels.cache.get("860961529390039050")
                         const embed = client.embed("Error", ` Message:\n\`\`\`js\n${require("util").inspect(e)}\`\`\`\nCommand: \`\`\`${command.name}\`\`\`\nUser: \`\`\`${message.author.tag}\`\`\`\nUser ID: \`\`\`${message.author.id}\`\`\`\nDev | Owner: \`\`\`${message.isOwner ? "Yes" : "No"}\`\`\`\nGuild: \`\`\`${message.guild}\`\`\`\nGuild ID: \`\`\`${message.guild.id}\`\`\` `).setTimestamp()

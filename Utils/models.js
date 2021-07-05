@@ -98,7 +98,7 @@ schema = Schema({
 
 exports.guildtickets = model("guildtickets", schema)
 
-Schema({
+schema = Schema({
     messageID: String,
     channelID: String,
     guildID: String,

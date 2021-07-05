@@ -1,5 +1,3 @@
-const { MessageEmbed } = require("discord.js")
-const fs = require("fs")
 module.exports = {
     owner: false,
     run: async(client, message, args) => {
@@ -14,7 +12,6 @@ module.exports = {
       if(specific == false){
   let info = []
   let owner = []
- let economy = []
   let utility = []
   let music = []
   let leveling = []
@@ -34,9 +31,7 @@ module.exports = {
           if (message.isOwner == true){
               owner.push(`\`${cmd.name}\``)
           }
-      }else if(c =="economy"){
-          economy.push(`\`${cmd.name}\``)
-      } else if(c == "utility"){
+         } else if(c == "utility"){
         utility.push(`\`${cmd.name}\``)
       }else if(c == "music"){
         music.push(`\`${cmd.name}\``)
@@ -62,7 +57,6 @@ module.exports = {
     embed.addField("🛠️ Developer:",dev)
   }
 const i = info.join(", ")
-const ec = economy.join(", ")
 const ut = utility.join(", ")
 const msu = music.join(", ")
 const lvl = leveling.join(", ")
@@ -82,9 +76,6 @@ if(fun.length > 0){
 }
 if(giveaways.length > 0){
   embed.addField("🎉 Giveaways:", gv)
-}
-if(economy.length > 0){
-embed.addField("💰 Economy:", ec)
 }
 if(leveling.length > 0){
   embed.addField("⬆️ Leveling:", lvl)
