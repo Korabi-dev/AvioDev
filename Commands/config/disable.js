@@ -1,6 +1,7 @@
 module.exports = {
     permissions: ["MANAGE_GUILD"],
     run: async(client, message, args) => {
+        const immune = ["help", "enable", "disable"]
         if(!args[0]) return message.reply(client.embed("Error", "You need to provide a command to disable."))
         const commandName = args[0].toLowerCase()
         var command =
@@ -27,7 +28,7 @@ module.exports = {
             return message.reply(client.embed("Error", "Invalid Command."), {mention: true})
              } else {
                
-                
+                if(immune.includes(command.name)) return message.reply(client.embed("Error", "This command can not be disabled."))
                 const data = await client.models.disable.findOne({guild: message.guild.id})
                 if(data){
                     if (data.disabled.includes(commandName)) return message.reply(client.embed("Error", "This command is already disabled."))
