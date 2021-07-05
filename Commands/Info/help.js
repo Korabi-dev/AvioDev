@@ -58,9 +58,9 @@ module.exports = {
       }
   })
 
-  const embed = client.embed(`${client.user.username} Commands List!`, `${client.user.username} currently has **${total}** public commands.`).setFooter(`Thanks for using ${client.user.username}! Use ${message.guild.prefix}help <command> to get help with a specific command.`)
+  const embed = client.embed(`${client.user.username} Commands List!`, `${client.user.username} currently has **${total}** public commands. [Check out the github repository](https://github.com/Korabi-dev/AvioDev)`).setFooter(`Thanks for using ${client.user.username}! Use ${message.guild.prefix}help <command> to get help with a specific command.`)
   if(owner.length && message.isOwner == true){
-    embed.setDescription(`${client.user.username} currently has **${total}** public commands, and **${total + devc}** total commands.`)
+    embed.setDescription(`${client.user.username} currently has **${total}** public commands, and **${total + devc}** total commands. [Check out the github repository](https://github.com/Korabi-dev/AvioDev)`)
     const dev = owner.join(", ")
     embed.addField("🛠️ Developer:",dev)
   }
