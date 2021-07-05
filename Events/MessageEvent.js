@@ -356,8 +356,7 @@ global.removeUserMoney = async function(user, type, amount){
 
         message.reply = function(content, options = {}){
          if(!options.mention){
-            
-            return message.noMentionReply(content)
+             return message.noMentionReply(content)
          }   
          if(options.mention){
              return message.mentionReply(content)
@@ -397,6 +396,14 @@ let [commandName, ...args] = message.content
                 if(d && message.isOwner == false){
                     if(d.active == true) return message.reply(client.embed("Error", `You are blacklisted from using ${client.user.username}.`).setColor("RED"))
                 } 
+                const d2 = await client.models.blacklist.findOne({user: message.guild.id})
+                if(d2 &&!message.isOwner){
+                    if(d2.active == true) return message.reply(client.embed("Error", `${message.guild.name} is blacklisted.`).setColor("RED"))
+                }
+                const d3 = await client.models.disable.findOne({guild: message.guild.id})
+                if(d3){
+                    if(d3.disabled.includes(commandName)) return message.reply(client.embed("Error", `This command is disabled in ${message.guild.name}`))
+                }
             if(command.owner && message.isOwner == false) {
                 return message.reply(client.embed("This command is owner only."))
             } else {

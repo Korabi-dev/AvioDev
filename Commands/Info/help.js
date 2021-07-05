@@ -25,6 +25,7 @@ module.exports = {
   let fun = []
   let giveaways = []
   let all = []
+  let config = []
   client.commands.map(cmd => {
     all.push(cmd)
       if(!cmd.hide){
@@ -51,7 +52,9 @@ module.exports = {
             fun.push(`\`${cmd.name}\``)
               }else if(c == "giveaways"){
                 giveaways.push(`\`${cmd.name}\``)
-                  }
+                  }else if(c == "config"){
+                    config.push(`\`${cmd.name}\``)
+                      }
       }
   })
 
@@ -70,6 +73,7 @@ const sg = suggestions.join(", ")
 const tc = tickets.join(", ")
 const fn = fun.join(", ")
 const gv = giveaways.join(", ")
+const cg = config.join(", ")
 if(info.length > 0){
   embed.addField("ℹ️ Info:", i)
 }
@@ -81,9 +85,6 @@ if(fun.length > 0){
 }
 if(giveaways.length > 0){
   embed.addField("🎉 Giveaways:", gv)
-}
-if(leveling.length > 0){
-  embed.addField("⬆️ Leveling:", lvl)
 }
 if(suggestions.length > 0){
   embed.addField("📝 Suggestions:", sg)
@@ -97,7 +98,12 @@ if(music.length > 0){
 if(utility.length > 0){
     embed.addField("🔨 Utility:", ut)
 }
-
+if(config.length > 0){
+  embed.addField("⚙️ Configuration:", cg)
+}
+if(leveling.length > 0){
+  embed.addField("⬆️ Leveling:", lvl)
+}
 if(all.length < 1){
     return message.reply(client.embed("Error", "No commands found."))
 }

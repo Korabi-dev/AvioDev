@@ -145,3 +145,8 @@ schema = Schema({
 });
 
 exports.giveaways = model("giveaways", schema)
+schema = Schema({
+    guild: String,
+    disabled: Array
+})
+exports.disable = model("disabled", schema)
