@@ -5,11 +5,13 @@ module.exports = {
     name: "message",
     run: async(message, client) => {
        let prefix =  client.prefix
+       message.guild.prefix = client.prefix
        var canrun = true
         if(message.guild){
        const newp = await models.prefix.findOne({guild: message.guild.id})
        if(newp){
          prefix = newp.prefix
+         message.guild.prefix = newp.prefix
        }
     }
         if(message.author.bot || !message.content.startsWith(prefix) || message.content == prefix || !message.guild.me.hasPermission("SEND_MESSAGES") || !message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return;

@@ -1,6 +1,5 @@
 var userinfo = require('github-userinfo');
 module.exports = {
-    owner: true,
     run: async(client, message, args) => {
         if(!args[0]) return message.reply(client.embed("Error", "Please Provide a Username."))
        userinfo.get(args[0], async(err, info) => {

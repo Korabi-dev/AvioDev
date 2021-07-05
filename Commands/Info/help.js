@@ -2,9 +2,13 @@ module.exports = {
     owner: false,
     run: async(client, message, args) => {
       var total = 0
+      var devc = 0
+      
      client.commands.map(cmd => {
        if(!cmd.hide && !cmd.owner){
          ++total
+       } else if(cmd.owner){
+        ++devc
        }
      })
       var specific = false
@@ -51,8 +55,9 @@ module.exports = {
       }
   })
 
-  const embed = client.embed(`${client.user.username} Commands List!`, `${client.user.username} currently has **${total}** public commands.`).setFooter(`Thanks for using ${client.user.username}! Do !help <command> to get help with a specific command.`)
+  const embed = client.embed(`${client.user.username} Commands List!`, `${client.user.username} currently has **${total}** public commands.`).setFooter(`Thanks for using ${client.user.username}! Use ${message.guild.prefix}help <command> to get help with a specific command.`)
   if(owner.length && message.isOwner == true){
+    embed.setDescription(`${client.user.username} currently has **${total}** public commands, and **${total + devc}** total commands.`)
     const dev = owner.join(", ")
     embed.addField("🛠️ Developer:",dev)
   }
