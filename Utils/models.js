@@ -1,16 +1,5 @@
 let { Schema, model, mongoose } = require("mongoose");
 
-let schema = Schema({
- user: String,
- wallet: Number,
- bank: Number,
- level: Number,
- xp: Number,
- needed: Number
-});
-
-exports.profile = model("profile", schema);
-
 schema = Schema({
     guild: String,
     prefix: String,
@@ -150,3 +139,10 @@ schema = Schema({
     disabled: Array
 })
 exports.disable = model("disabled", schema)
+
+schema = Schema({
+    guild: String,
+    command: String,
+    response: String
+})
+exports.cc = model("cc", schema)

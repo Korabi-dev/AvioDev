@@ -2,5 +2,6 @@
     "token": "DISCORD_BOT_TOKEN",
     "mongoose": "MONGODB_SERVER",
     "spotifyid": "SPOTIFY_APP_ID",
-    "spotifysecret": "SPOTIFY_APP_SECRET_TOKENN"
+    "spotifysecret": "SPOTIFY_APP_SECRET_TOKENN",
+    "apikey": "GITHUB_API_TOKEN"
 }

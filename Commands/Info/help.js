@@ -18,7 +18,6 @@ module.exports = {
   let owner = []
   let utility = []
   let music = []
-  let leveling = []
   let moderation = []
   let suggestions = []
   let tickets = []
@@ -40,8 +39,6 @@ module.exports = {
         utility.push(`\`${cmd.name}\``)
       }else if(c == "music"){
         music.push(`\`${cmd.name}\``)
-      } else if(c == "leveling"){
-    leveling.push(`\`${cmd.name}\``)
       }else if(c == "moderation"){
         moderation.push(`\`${cmd.name}\``)
       } else if(c == "suggestions"){
@@ -58,16 +55,15 @@ module.exports = {
       }
   })
 
-  const embed = client.embed(`${client.user.username} Commands List!`, `${client.user.username} currently has **${total}** public commands. [Check out the github repository](https://github.com/Korabi-dev/AvioDev)`).setFooter(`Thanks for using ${client.user.username}! Use ${message.guild.prefix}help <command> to get help with a specific command.`)
+  const embed = client.embed(`${client.user.username} Commands List!`, `${client.user.username} currently has **${total}** public commands.\n[Check out the github repository](https://github.com/Korabi-dev/AvioDev)`).setFooter(`Thanks for using ${client.user.username}! Use ${message.guild.prefix}help <command> to get help with a specific command.`)
   if(owner.length && message.isOwner == true){
-    embed.setDescription(`${client.user.username} currently has **${total}** public commands, and **${total + devc}** total commands. [Check out the github repository](https://github.com/Korabi-dev/AvioDev)`)
+    embed.setDescription(`${client.user.username} currently has **${total}** public commands, and **${total + devc}** total commands.\n[Check out the github repository](https://github.com/Korabi-dev/AvioDev)`)
     const dev = owner.join(", ")
     embed.addField("🛠️ Developer:",dev)
   }
 const i = info.join(", ")
 const ut = utility.join(", ")
 const msu = music.join(", ")
-const lvl = leveling.join(", ")
 const md = moderation.join(", ")
 const sg = suggestions.join(", ")
 const tc = tickets.join(", ")
@@ -80,29 +76,26 @@ if(info.length > 0){
 if(moderation.length > 0){
   embed.addField("🛡️ Moderation:", md)
 }
-if(fun.length > 0){
-  embed.addField("🎡 Fun:", fn)
-}
-if(giveaways.length > 0){
-  embed.addField("🎉 Giveaways:", gv)
-}
 if(suggestions.length > 0){
   embed.addField("📝 Suggestions:", sg)
 }
-if(tickets.length > 0){
-  embed.addField("🎫 Tickets:", tc)
-}
 if(music.length > 0){
-    embed.addField("🎤 Music:", msu)
+  embed.addField("🎤 Music:", msu)
 }
 if(utility.length > 0){
-    embed.addField("🔨 Utility:", ut)
+  embed.addField("🔨 Utility:", ut)
 }
 if(config.length > 0){
   embed.addField("⚙️ Configuration:", cg)
 }
-if(leveling.length > 0){
-  embed.addField("⬆️ Leveling:", lvl)
+if(tickets.length > 0){
+  embed.addField("🎫 Tickets:", tc)
+}
+if(giveaways.length > 0){
+  embed.addField("🎉 Giveaways:", gv)
+}
+if(fun.length > 0){
+  embed.addField("🎡 Fun:", fn)
 }
 if(all.length < 1){
     return message.reply(client.embed("Error", "No commands found."))

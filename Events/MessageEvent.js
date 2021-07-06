@@ -393,7 +393,14 @@ let [commandName, ...args] = message.content
               if(best[0] && !command){
                   command = client.commands.get(best[0]) || client.commands.find((cmd) => cmd.aliases?.includes(best[0]));
               }
-            
+              
+              if(!command){
+                  const d = await client.models.cc.findOne({command: commandName.toLowerCase(), guild: message.guild.id})
+                  if(d){
+                      canrun = false
+                      return message.reply(d.response)
+                  }
+              }
         if(!command) {
             return message.reply(client.embed("Error", "Invalid Command."), {mention: true})
              } else {
@@ -453,33 +460,6 @@ let [commandName, ...args] = message.content
                         channel.send(embed)
                         message.reply(client.embed("Error (Developer Level)", `Error:\n\n\`\`\`js\n${require("util").inspect(e)}\n\`\`\`\n\nCommand: ${command.name}`).setFooter("Please report this to a developer."))
                     }
-                    const data = await profile.findOne({user: message.author.id})
-                    if(data){
-                        
-                        data.xp = data.xp + 10
-                        await data.save()
-                        if(data.xp >= data.needed){
-                        data.level = data.level + 1
-                        data.xp = 0
-                        data.needed = data.needed * 2
-                        await data.save().then(promise => {
-                            message.mentionReply(client.embed("Level Up!", `Congratulations! You have leveled up to level ${data.level}.`))
-                        })
-                        }
-                    } else {
-                        const newdata = new profile({
-                            user: message.author.id,
-                            wallet: 0,
-                            bank: 0,
-                            level:0,
-                            xp:10,
-                            needed:69
-                           });
-                await newdata.save().then(promise => {
-                    message.mentionReply(client.embed("New User!", `Hello! Looks like it is your first time using ${client.user.username}, We thank you very much for using our bot it's really awesome! <3`))
-                })
-                    }
-
                 }
             }
         }

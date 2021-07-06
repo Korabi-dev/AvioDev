@@ -17,6 +17,8 @@ let events = 0
 client.owners = ["638476135457357849", "764901658303922247", "705843647287132200"]
 client.models = require("../Utils/models")
 client.timeouts = new discord.Collection()
+client.snipes = new discord.Collection()
+client.editsnipes = new discord.Collection()
 const manager_start = async() => {
   await exec("java -jar Lavalink.jar")
 client.manager = new Manager({
@@ -34,6 +36,12 @@ client.manager = new Manager({
   });
   Array.prototype.random = function () {
     return this[Math.floor((Math.random()* this.length))];
+  }
+  Array.prototype.remove = function(element) {
+    const index = this.indexOf(element)
+    if(index > -1){
+      this.splice(index, 1)
+    }
   }
 
 client.manager.init("855057364032684092")
