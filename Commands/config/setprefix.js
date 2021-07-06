@@ -1,22 +1,9 @@
 const models = require("../../Utils/models")
 module.exports = {
+    permissions: ["MANAGE_GUILD"],
     run: async(client, message, args) => {
-        let canrun = false
-        if(message.member.permissions.has("MANAGE_GUILD")){
-            canrun = true
-        }
-        if(canrun == false && message.isOwner == true){
-            if(args.all.includes("--force")){
-                canrun = true
-            }
-        }
-        if(canrun == false){
-            return message.reply(client.embed("Missing Permissions", "You Need The `Manage Guild` Permission To Run This Command."))
-        } else {
-            if(!args[0] || args[0] == "--force"){
-                return message.reply(client.embed("Error", "You didnt provide a prefix to set."))
-            }
-const data = await models.prefix.findOne({guild: message.guild.id})
+         if(!args[0]) return message.reply(client.embed("Error", "You didnt provide a prefix to set."))
+            const data = await models.prefix.findOne({guild: message.guild.id})
 if(data){
     data.prefix = args[0]
     data.mod = message.author.id
@@ -41,4 +28,3 @@ if(data){
 }
         }
     }
-}

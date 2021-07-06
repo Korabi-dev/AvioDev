@@ -24,7 +24,12 @@ module.exports = {
 if(client.owners.includes(message.author.id)){
     message.isOwner = true
 }
-
+ function start(){
+     message.channel.startTyping()
+ }
+ function stop(){
+    message.channel.stopTyping()
+ }
 
 message.author.addMoney = async function(type, amount){
     if(!type || !amount || typeof(type) != "string" || typeof(amount) != "number") throw new SyntaxError("message.author.addMoney, Invalid arguments.")
@@ -392,23 +397,29 @@ let [commandName, ...args] = message.content
         if(!command) {
             return message.reply(client.embed("Error", "Invalid Command."), {mention: true})
              } else {
+                 start()
                 const d = await client.models.blacklist.findOne({user: message.author.id})
                 if(d && message.isOwner == false){
+                    stop()
                     if(d.active == true) return message.reply(client.embed("Error", `You are blacklisted from using ${client.user.username}.`).setColor("RED"))
                 } 
                 const d2 = await client.models.blacklist.findOne({user: message.guild.id})
                 if(d2 &&!message.isOwner){
+                    stop()
                     if(d2.active == true) return message.reply(client.embed("Error", `${message.guild.name} is blacklisted.`).setColor("RED"))
                 }
                 const d3 = await client.models.disable.findOne({guild: message.guild.id})
                 if(d3){
+                    stop()
                     if(d3.disabled.includes(commandName)) return message.reply(client.embed("Error", `This command is disabled in ${message.guild.name}`))
                 }
             if(command.owner && message.isOwner == false) {
+                stop()
                 return message.reply(client.embed("This command is owner only."))
             } else {
               
                 if(command.guild && !message.guild){
+                    stop()
                     return message.reply(client.embed("Error", "You can't use this command in dms."))
                 } else {
                    
@@ -417,6 +428,7 @@ let [commandName, ...args] = message.content
                             if(!message.member.hasPermission(perm) && !message.isOwner) {
                                 if(canrun == true){
                         canrun = false  
+                        stop()
                             message.reply(client.embed("Missing Permissions", `You need the \`${perm.replace("_", " ")}\` permission to use this command.`)) }}
                         })
                     }
@@ -425,6 +437,7 @@ let [commandName, ...args] = message.content
                             if(!message.guild.me.hasPermission(perm)) {
                                 if(canrun == true){
                                 canrun = false
+                                stop()
                               return   message.reply(client.embed("Missing Permissions", `I need the \`${perm.replace("_", " ")}\` permission for this command to work.`))
                             }}
                         })
@@ -432,6 +445,7 @@ let [commandName, ...args] = message.content
                     try{
                         if(canrun == true){
                    await command.run(client, message, args)
+                   stop()
                         }
                     }catch(e){
                         const channel = client.channels.cache.get("860961529390039050")

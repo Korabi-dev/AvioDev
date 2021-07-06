@@ -5,7 +5,7 @@ module.exports = {
             return message.reply(client.embed("Error", "You need the `Manage Messages` permission or a role with the name of `Giveaways` to use this command."))
         }
         const channel = message.mentions?.channels?.first();
-        if(!args[1] || !args[2] || !args[3] || isNaN(args[2]) || !channel) return message.reply(client.embed("Error",`Wrong usage, correct usage is: \`\`\`${client.prefix}start <channel> <Time> <WinnerCount> <Prize>\`\`\``))
+        if(!args[1] || !args[2] || !args[3] || isNaN(args[2]) || !channel) return message.reply(client.embed("Error",`Wrong usage, correct usage is: \`\`\`${message.guild.prefix}start <channel> <Time> <WinnerCount> <Prize>\`\`\``))
 
         client.giveawaysManager.start(channel, {
             time: ms(args[1]),
