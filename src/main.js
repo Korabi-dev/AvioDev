@@ -5,6 +5,10 @@ const { Manager } = require("erela.js")
 const Spotify = require("erela.js-spotify")
 client.commands = new discord.Collection();
 require("discord-buttons")(client)
+const AntiSpam = require("../Utils/antispam");
+process.on('unhandledRejection', error => {
+return;
+});
 const fs = require("fs");
 let maincolor = "#7289d5";
 client.maincolor = maincolor
@@ -14,7 +18,7 @@ const mongoose = require("mongoose")
 const { exec } = require("child_process")
 let cmds = 0
 let events = 0
-client.owners = ["638476135457357849", "764901658303922247", "705843647287132200"]
+client.owners = ["638476135457357849", "764901658303922247", "447680195604774922", "520797108257816586"]
 client.models = require("../Utils/models")
 client.timeouts = new discord.Collection()
 client.snipes = new discord.Collection()
@@ -81,6 +85,26 @@ if(d){embed.description = d};
 if(f){embed.footer = f};
 return embed;
 };
+
+client.antiSpam = new AntiSpam({
+	warnThreshold: 4,
+	muteThreshold: 6, 
+	kickThreshold: 8,
+	banThreshold: 10, 
+	maxInterval: 3000,
+	warnMessage: client.embed("Warning", `{user_tag} Stop Spamming, Continuing Will Lead To Further Actions.`),
+	kickMessage: client.embed("Kicked", `{user_tag} Has been Kicked For Spamming.`),
+	muteMessage: client.embed("Muted", `{user_tag} Has Been Muted For Spamming.`),
+	banMessage: client.embed("Banned", `{user_tag} Has Been Banned For Spamming.`),
+	maxDuplicatesWarning: 10, 
+	maxDuplicatesKick: 20, 
+	maxDuplicatesBan: 25, 
+	maxDuplicatesMute: 15,
+	ignoredPermissions: [], //["MANAGE_MESSAGES"], 
+	ignoreBots: true,
+	muteRoleName: "Muted",
+	removeMessages: true 
+});
 
 client.loadCommands = function()
 {

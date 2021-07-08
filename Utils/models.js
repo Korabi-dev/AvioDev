@@ -146,3 +146,11 @@ schema = Schema({
     response: String
 })
 exports.cc = model("cc", schema)
+
+
+schema = Schema({
+    guild: String,
+    features: Array,
+    enabled: Boolean
+})
+exports.automod = model("automod", schema)

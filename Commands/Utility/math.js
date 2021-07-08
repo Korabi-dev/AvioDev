@@ -1,11 +1,10 @@
-const { evaluate } = require("mathjs")
-
+const {evaluate} = require("@korabi20/math-functions")
 module.exports = {
     run: async(client, message, args) => {
         if(!args[0]) return message.reply(client.embed("Error", "You must provide some arguments."))
         let e = "Error"
         try{
-         e = evaluate(args.all)
+         e = await evaluate(args.all)
     } catch(e) {
         return message.reply(client.embed("Error", "This equasion is invalid."))
     }

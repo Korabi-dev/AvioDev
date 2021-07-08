@@ -2,8 +2,7 @@ const { MessageAttachment, discord, MessageEmbed, splitMessage  } = require('dis
 const fs = require("fs")
 const { inspect } = require('util');
 const { Type } = require('@extreme_hero/deeptype');
-
-
+const math = require("@korabi20/math-functions")
 module.exports = {
     owner: true,
     run: async(client, message, args) => {
