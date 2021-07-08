@@ -4,7 +4,7 @@
   "description": "A discord  bot",
   "main": "src/main.js",
   "scripts": {
-    "start": "npm update && node ."
+    "start": "npm update && pm2 kill && pm2 start src/main.js && pm2 logs"
   },
   "keywords": [
     "Bot"
@@ -16,7 +16,7 @@
     "@discordjs/opus": "^0.5.3",
     "@extreme_hero/deeptype": "^1.0.1",
     "@iamtraction/google-translate": "^1.1.2",
-    "@korabi20/math-functions": "^1.2.5",
+    "@korabi20/math-functions": "github:Korabi-dev/Math-functions.js",
     "axios": "^0.21.1",
     "bad-words": "^3.0.4",
     "discord-anti-spam": "^2.5.1",

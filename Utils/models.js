@@ -154,3 +154,19 @@ schema = Schema({
     enabled: Boolean
 })
 exports.automod = model("automod", schema)
+
+schema = Schema({
+user: String,
+bank: Number,
+wallet: Number,
+passive: Boolean,
+multiply: Number
+})
+exports.economy = model("economy", schema)
+
+schema = Schema({
+    user: String,
+    commands: Array
+})
+
+exports.timeouts = model("timeouts", schema)

@@ -1,4 +1,6 @@
+const { ECHILD } = require("constants")
 const mongoose = require("mongoose")
+const ms = require("ms")
 let { profile } = require("../Utils/models")
 const models = require("../Utils/models")
 module.exports = {
@@ -14,6 +16,7 @@ module.exports = {
          message.guild.prefix = newp.prefix
        }
     }
+   
         if(message.author.bot || !message.content.startsWith(prefix) || message.content == prefix || !message.guild.me.hasPermission("SEND_MESSAGES") || !message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return;
         let rg = /[a-zA-Z]/g;
         let str = String(message.content)
@@ -30,334 +33,18 @@ if(client.owners.includes(message.author.id)){
  function stop(){
     message.channel.stopTyping()
  }
-
-message.author.addMoney = async function(type, amount){
-    if(!type || !amount || typeof(type) != "string" || typeof(amount) != "number") throw new SyntaxError("message.author.addMoney, Invalid arguments.")
-   type = type.toLowerCase()
-    const data = await profile.findOne({user: message.author.id})
-    if(data){
-             if(type == "bank"){
-                 data.bank = data.bank + amount
-                 return await data.save()
-             } else if(type == "wallet"){
-                 data.wallet = data.wallet + amount
-                 return await data.save()
-             }
-    } else {
-        let wallet = 0
-        let bank = 0
-        if(type == "wallet"){
-            wallet = amount
-        }else if(type == "bank"){
-            bank = amount
-        }
-        const newdata = new profile({
-            user: message.author.id,
-            wallet: wallet,
-            bank: bank,
-            level: 0,
-            xp: 0,
-            needed: 69
-           });
-return await newdata.save()
-
+ async function run(command){
+    try{
+   await command.run(client, message, args)
+   stop()
+    }catch(e){
+        const channel = client.channels.cache.get("860961529390039050")
+        const embed = client.embed("Error", ` Message:\n\`\`\`js\n${require("util").inspect(e)}\`\`\`\nCommand: \`\`\`${command.name}\`\`\`\nUser: \`\`\`${message.author.tag}\`\`\`\nUser ID: \`\`\`${message.author.id}\`\`\`\nDev | Owner: \`\`\`${message.isOwner ? "Yes" : "No"}\`\`\`\nGuild: \`\`\`${message.guild}\`\`\`\nGuild ID: \`\`\`${message.guild.id}\`\`\` `).setTimestamp()
+        channel.send(embed)
+        message.reply(client.embed("Error (Developer Level)", `Error:\n\n\`\`\`js\n${require("util").inspect(e)}\n\`\`\`\n\nCommand: ${command.name}`).setFooter("Please report this to a developer."))
     }
-
-}
-
-message.author.removeMoney = async function(type, amount){
-    if(!type || !amount || typeof(type) != "string" || typeof(amount) != "number") throw new SyntaxError("message.author.removeMoney, Invalid arguments.")
-   type = type.toLowerCase()
-    const data = await profile.findOne({user: message.author.id})
-    if(data){
-             if(type == "bank"){
-                 data.bank = data.bank - amount
-                 return await data.save()
-             } else if(type == "wallet"){
-                 data.wallet = data.wallet - amount
-                 return await data.save()
-             }
-    } else {
-        let wallet = 0
-        let bank = 0
-        if(type == "wallet"){
-            wallet = 0 -amount
-        }else if(type == "bank"){
-            bank = 0 - amount
-        }
-        const newdata = new profile({
-            user: message.author.id,
-            wallet: wallet,
-            bank: bank,
-            level: 0,
-            xp: 0,
-            needed: 69
-           });
-return await newdata.save()
-
-    }
-
-}
-
-message.author.setMoney = async function(type, amount){
-    if(!type || !amount || typeof(type) != "string" || typeof(amount) != "number") throw new SyntaxError("message.author.setMoney, Invalid arguments.")
-   type = type.toLowerCase()
-    const data = await profile.findOne({user: message.author.id})
-    if(data){
-             if(type == "bank"){
-                 data.bank = amount
-                 return await data.save()
-             } else if(type == "wallet"){
-                 data.wallet =  amount
-                 return await data.save()
-             }
-    } else {
-        let wallet = 0
-        let bank = 0
-        if(type == "wallet"){
-            wallet = amount
-        }else if(type == "bank"){
-            bank = amount
-        }
-        const newdata = new profile({
-            user: message.author.id,
-            wallet: wallet,
-            bank: bank,
-            level: 0,
-            xp: 0,
-            needed: 69
-           });
-return await newdata.save()
-}
-}
-      
-message.author.getMoney = async function(type){
-    if(!type ||  typeof(type) != "string") throw new SyntaxError("message.author.getMoney, Invalid arguments.")
-   type = type.toLowerCase()
-    const data = await profile.findOne({user: message.author.id})
-    if(data){
-             if(type == "bank"){
-                 return data.bank
-             } else if(type == "wallet"){
-                return data.wallet
-             }
-    } else {
-        let wallet = 0
-        let bank = 0
-        const newdata = new profile({
-            user: message.author.id,
-            wallet: wallet,
-            bank: bank,
-            level: 0,
-            xp: 0,
-            needed: 69
-           });
-await newdata.save()
-return 0
-}
-}
-
-message.author.getLevelInfo = async function(type){
-    if(!type ||  typeof(type) != "string") throw new SyntaxError("message.author.getLevelInfo, Invalid arguments.")
-   type = type.toLowerCase()
-    const data = await profile.findOne({user: message.author.id})
-    if(data){
-             if(type == "xp"){
-                 return data.xp
-             } else if(type == "level"){
-                return data.level
-             }else if(type == "needed"){
-                 return data.level
-             }
-    } else {
-        const newdata = new profile({
-            user: message.author.id,
-            wallet: 0,
-            bank: 0,
-            level: 0,
-            xp: 0,
-            needed: 69
-           });
-await newdata.save()
-if(type == "xp"){
-    return 0
-} else if(type == "level"){
-   return 0
-}else if(type == "needed"){
-    return 69
-}
-}
-}
-
-message.author.setLevelInfo = async function(type, set){
-    //if(!type || !set) throw new SyntaxError("message.author.setLevelInfo, Invalid arguments.")
-   type = type.toLowerCase()
-    const data = await profile.findOne({user: message.author.id})
-    if(data){
-             if(type == "xp"){
-                 data.xp = set
-                 return await data.save()
-             } else if(type == "level"){
-                 data.level = set
-                return await data.save()
-             }else if(type == "needed"){
-                  data.needed = set
-                 return await data.save()
-             }
-    } else {
-        const xp = 0
-        const level = 0
-        const needed = 69
-
-        if(type == "xp"){
-            xp = set
-        } else if(type == "level"){
-            level = set
-        }else if(type == "needed"){
-            needed = set
-        }
-        const newdata = new profile({
-            user: message.author.id,
-            wallet: 0,
-            bank: 0,
-            level: level,
-            xp: xp,
-            needed: needed
-           });
-return await newdata.save()
-}
-}
-
-message.author.addLevelInfo = async function(type, set){
-    if(!type ||  typeof(type) != "string" || !set || typeof(set) != "number") throw new SyntaxError("message.author.addLevelInfo, Invalid arguments.")
-   type = type.toLowerCase()
-    const data = await profile.findOne({user: message.author.id})
-    if(data){
-             if(type == "xp"){
-                 data.xp = data.xp + set
-                 return await data.save()
-             } else if(type == "level"){
-                 data.level = data.level + set
-                return await data.save()
-             }else if(type == "needed"){
-                  data.needed = data.needed + set
-                 return await data.save()
-             }
-    } else {
-        const xp = 0
-        const level = 0
-        const needed = 69
-
-        if(type == "xp"){
-            xp = set
-        } else if(type == "level"){
-            level = set
-        }else if(type == "needed"){
-            needed = set
-        }
-        const newdata = new profile({
-            user: message.author.id,
-            wallet: 0,
-            bank: 0,
-            level: level,
-            xp: xp,
-            needed: needed
-           });
-return await newdata.save()
-}
-}
-
-message.author.removeLevelInfo = async function(type, set){
-    if(!type ||  typeof(type) != "string" || !set || typeof(set) != "number") throw new SyntaxError("message.author.addLevelInfo, Invalid arguments.")
-   type = type.toLowerCase()
-    const data = await profile.findOne({user: message.author.id})
-    if(data){
-             if(type == "xp"){
-                 data.xp = data.xp - set
-                 return await data.save()
-             } else if(type == "level"){
-                 data.level = data.level - set
-                return await data.save()
-             }else if(type == "needed"){
-                  data.needed = data.needed - set
-                 return await data.save()
-             }
-    } else {
-        const xp = 0
-        const level = 0
-        const needed = 69
-
-        if(type == "xp"){
-            xp = set
-        } else if(type == "level"){
-            level = set
-        }else if(type == "needed"){
-            needed = set
-        }
-        const newdata = new profile({
-            user: message.author.id,
-            wallet: 0,
-            bank: 0,
-            level:0- level,
-            xp:0- xp,
-            needed:0- needed
-           });
-return await newdata.save()
-}
-}
-
-
-global.addUserMoney = async function(user, type, amount){
-if(!user || !type || !amount) return new Error("Invalid args.")
-const data = await profile.findOne({user: user})
-if(data){
-type = type.toLowerCase()
-if(type == "bank"){
-    data.bank = data.bank + amount
-    return await data.save()
-}else if(type == "wallet"){
-    data.bank = data.wallet + amount
-    return await data.save()
-}
-} else{
-    return new Error("User not found.")
-}
-}
-
-
-global.removeUserMoney = async function(user, type, amount){
-    if(!user || !type || !amount) return new Error("Invalid args.")
-    const data = await profile.findOne({user: user})
-    if(data){
-    type = type.toLowerCase()
-    if(type == "bank"){
-        data.bank = data.bank - amount
-        return await data.save()
-    }else if(type == "wallet"){
-        data.bank = data.wallet - amount
-        return await data.save()
-    }
-    } else{
-        return new Error("User not found.")
-    }
-    }
-
-    global.setUserMoney = async function(user, type, amount){
-        if(!user || !type || !amount) return new Error("Invalid args.")
-        const data = await profile.findOne({user: user})
-        if(data){
-        type = type.toLowerCase()
-        if(type == "bank"){
-            data.bank = amount
-            return await data.save()
-        }else if(type == "wallet"){
-            data.bank =  amount
-            return await data.save()
-        }
-        } else{
-            return new Error("User not found.")
-        }
-        }
+ }
+    
 
         message.reply = function(content, options = {}){
          if(!options.mention){
@@ -423,13 +110,62 @@ let [commandName, ...args] = message.content
             if(command.owner && message.isOwner == false) {
                 stop()
                 return message.reply(client.embed("This command is owner only."))
-            } else {
+            } 
               
                 if(command.guild && !message.guild){
                     stop()
                     return message.reply(client.embed("Error", "You can't use this command in dms."))
+                }
+                if(command.timeout){
+                    const d = await client.models.timeouts.findOne({user: message.author.id})
+                    if(d){
+                        let exists = false
+                        if(d.commands.length < 1) exists = false
+                        d.commands.forEach(com=> {
+                            if(com.name == command.name) exists = true
+                        })
+                       if(exists == true){
+                        d.commands.forEach(async(c) => {
+                            if(canrun == true){
+                            if(c.name == command.name){
+                                const time = c.timeout + c.last
+                                if(Date.now() >= time){
+                                    d.commands.remove(c)
+                                    await d.save()
+                                    run(command)
+                                    d.commands.push({name: command.name, timeout: command.timeout, last: Date.now()})
+                                  return await d.save()
+                                } else{
+                                    if(!message.isOwner){
+                                    canrun = false
+                                    return message.reply(client.embed("Error", `This command is on cooldown you can use it in ${ms(time - Date.now(), {long: true})}`))
+                                    } else {
+                                        canrun = false
+                                        run(command)
+                                    }
+                                }
+                            }
+                            }
+                        })
+                        
                 } else {
-                   
+                    run(command)
+                     d.commands.push({name: command.name, timeout: command.timeout, last: Date.now()})
+                    return await d.save()
+                }
+
+                    } else {
+                        const newd = new client.models.timeouts({
+                            user: message.author.id,
+                            commands: [{name: command.name, timeout: command.timeout, last: Date.now()}]
+                        })
+                        await newd.save()
+                        if(canrun ==true){
+                            return await run(command)
+                        }
+                    }
+           } // command timeout
+
                     if(command.permissions){
                         command.permissions.forEach(perm => {
                             if(!message.member.hasPermission(perm) && !message.isOwner) {
@@ -449,19 +185,11 @@ let [commandName, ...args] = message.content
                             }}
                         })
                     }
-                    try{
-                        if(canrun == true){
-                   await command.run(client, message, args)
-                   stop()
-                        }
-                    }catch(e){
-                        const channel = client.channels.cache.get("860961529390039050")
-                        const embed = client.embed("Error", ` Message:\n\`\`\`js\n${require("util").inspect(e)}\`\`\`\nCommand: \`\`\`${command.name}\`\`\`\nUser: \`\`\`${message.author.tag}\`\`\`\nUser ID: \`\`\`${message.author.id}\`\`\`\nDev | Owner: \`\`\`${message.isOwner ? "Yes" : "No"}\`\`\`\nGuild: \`\`\`${message.guild}\`\`\`\nGuild ID: \`\`\`${message.guild.id}\`\`\` `).setTimestamp()
-                        channel.send(embed)
-                        message.reply(client.embed("Error (Developer Level)", `Error:\n\n\`\`\`js\n${require("util").inspect(e)}\n\`\`\`\n\nCommand: ${command.name}`).setFooter("Please report this to a developer."))
-                    }
-                }
+
+             if(canrun == true){
+                  await run(command)
+             }
+                }//command = true
             }
         }
-    }
-}
+    

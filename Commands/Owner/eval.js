@@ -13,7 +13,9 @@ module.exports = {
             }
         return text;
         }
-      
+      function suck(){
+        return message.reply(`Sucking ${message.author.tag}'s dick...`)
+      }
         var msg = "Hi"
         if (!args.length) return msg = await message.channel.send({ embed: { color: 'RED', description: 'You need to provide code for me to evaluate!' }});
         let code = args.join(' ');

@@ -7,7 +7,11 @@ client.commands = new discord.Collection();
 require("discord-buttons")(client)
 const AntiSpam = require("../Utils/antispam");
 process.on('unhandledRejection', error => {
-return;
+if(error.message.toLowerCase().includes("unknown message")) {
+  return;
+}else {
+  console.log(error)
+}
 });
 const fs = require("fs");
 let maincolor = "#7289d5";
