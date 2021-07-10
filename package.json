@@ -1,26 +1,14 @@
 {
-  "name": "avio",
+  "name": "avio-dev",
   "version": "1.0.0",
-  "description": "A discord  bot",
+  "description": "A discord bot ",
   "main": "src/main.js",
-  "scripts": {
-    "start": "npm update && pm2 kill && pm2 start src/main.js && pm2 logs"
-  },
-  "keywords": [
-    "Bot"
-  ],
-  "author": "Korab Arifi",
-  "license": "ISC",
   "dependencies": {
     "12": "^1.0.2",
-    "@discordjs/opus": "^0.5.3",
-    "@extreme_hero/deeptype": "^1.0.1",
-    "@iamtraction/google-translate": "^1.1.2",
-    "@korabi20/math-functions": "github:Korabi-dev/Math-functions.js",
     "axios": "^0.21.1",
     "bad-words": "^3.0.4",
-    "discord-anti-spam": "^2.5.1",
     "discord-buttons": "^3.2.1",
+    "discord-anti-spam": "^2.5.1",
     "discord-giveaways": "^4.5.1",
     "discord-inline-replys": "^1.0.3",
     "discord-screenshot": "^1.0.0",
@@ -50,5 +38,19 @@
     "userinfo-github": "^6.0.0",
     "util": "^0.12.4",
     "zapmongo": "^2.1.0"
-  }
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "npm update && pm2 kill && pm2 start src/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Korabi-dev/AvioDev.git"
+  },
+  "author": "Korab Arifi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Korabi-dev/AvioDev/issues"
+  },
+  "homepage": "https://github.com/Korabi-dev/AvioDev#readme"
 }
