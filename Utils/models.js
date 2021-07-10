@@ -160,7 +160,8 @@ user: String,
 bank: Number,
 wallet: Number,
 passive: Boolean,
-multiply: Number
+multiply: Number,
+backpack: Array
 })
 exports.economy = model("economy", schema)
 

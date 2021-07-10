@@ -1,3 +1,5 @@
+const { random } = require("mathjs")
+
 module.exports = {
     timeout: 3600000,
     run: async(client, message, args) => {
@@ -5,8 +7,8 @@ module.exports = {
         job = job.random()
         const d = await client.models.economy.findOne({user: message.author.id})
         if(d){
-        d.bank = Math.floor(Math.random() * (1500 - 10 + 1) + 10)
-        const income = d.bank
+            const income = Math.floor(random(10, 1000)) * d.multiply
+        d.bank = d.bank + income
         await d.save()
         message.reply(client.embed("Work", `You worked as a ${job} and got $${income} for 1h of work.`))
         } else {
@@ -16,7 +18,8 @@ module.exports = {
             wallet: 0,
             bank: Math.floor(Math.random() * (1500 - 10 + 1) + 10),
             passive: false,
-            multiply: 1
+            multiply: 1,
+            backpack: []
         })
         await newd.save()
         const income = newd.bank

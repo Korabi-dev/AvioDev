@@ -6,6 +6,18 @@ const models = require("../Utils/models")
 module.exports = {
     name: "message",
     run: async(message, client) => {
+         const economy = await client.models.economy.findOne({user: message.author.id})
+        if(!economy && !message.author.bot){
+            const newe = new client.models.economy({
+                user: message.author.id,
+                passive: false,
+                bank: 0,
+                wallet: 0,
+                multiply: 1,
+                backpack: []
+            })
+            await newe.save()
+        }
        let prefix =  client.prefix
        message.guild.prefix = client.prefix
        var canrun = true
@@ -53,7 +65,9 @@ if(client.owners.includes(message.author.id)){
          if(options.mention){
              return message.mentionReply(content)
          }
- }
+        }
+
+
 let [commandName, ...args] = message.content
         .slice(prefix.length)
         .trim()
@@ -116,55 +130,7 @@ let [commandName, ...args] = message.content
                     stop()
                     return message.reply(client.embed("Error", "You can't use this command in dms."))
                 }
-                if(command.timeout){
-                    const d = await client.models.timeouts.findOne({user: message.author.id})
-                    if(d){
-                        let exists = false
-                        if(d.commands.length < 1) exists = false
-                        d.commands.forEach(com=> {
-                            if(com.name == command.name) exists = true
-                        })
-                       if(exists == true){
-                        d.commands.forEach(async(c) => {
-                            if(canrun == true){
-                            if(c.name == command.name){
-                                const time = c.timeout + c.last
-                                if(Date.now() >= time){
-                                    d.commands.remove(c)
-                                    await d.save()
-                                    run(command)
-                                    d.commands.push({name: command.name, timeout: command.timeout, last: Date.now()})
-                                  return await d.save()
-                                } else{
-                                    if(!message.isOwner){
-                                    canrun = false
-                                    return message.reply(client.embed("Error", `This command is on cooldown you can use it in ${ms(time - Date.now(), {long: true})}`))
-                                    } else {
-                                        canrun = false
-                                        run(command)
-                                    }
-                                }
-                            }
-                            }
-                        })
-                        
-                } else {
-                    run(command)
-                     d.commands.push({name: command.name, timeout: command.timeout, last: Date.now()})
-                    return await d.save()
-                }
-
-                    } else {
-                        const newd = new client.models.timeouts({
-                            user: message.author.id,
-                            commands: [{name: command.name, timeout: command.timeout, last: Date.now()}]
-                        })
-                        await newd.save()
-                        if(canrun ==true){
-                            return await run(command)
-                        }
-                    }
-           } // command timeout
+                
 
                     if(command.permissions){
                         command.permissions.forEach(perm => {
@@ -185,10 +151,60 @@ let [commandName, ...args] = message.content
                             }}
                         })
                     }
-
-             if(canrun == true){
-                  await run(command)
-             }
+                    if(command.timeout){
+                        const d = await client.models.timeouts.findOne({user: message.author.id})
+                        if(d){
+                            let exists = false
+                            if(d.commands.length < 1) exists = false
+                            d.commands.forEach(com=> {
+                                if(com.name == command.name) exists = true
+                            })
+                           if(exists == true){
+                            d.commands.forEach(async(c) => {
+                                if(canrun == true){
+                                if(c.name == command.name){
+                                    const time = c.timeout + c.last
+                                    if(Date.now() >= time){
+                                        d.commands.remove(c)
+                                        await d.save()
+                                        run(command)
+                                        d.commands.push({name: command.name, timeout: command.timeout, last: Date.now()})
+                                      return await d.save()
+                                    } else{
+                                        if(!message.isOwner){
+                                        canrun = false
+                                        return message.reply(client.embed("Error", `This command is on cooldown you can use it in ${ms(time - Date.now(), {long: true})}`))
+                                        } else {
+                                            canrun = false
+                                            run(command)
+                                        }
+                                    }
+                                }
+                                }
+                            })
+                            
+                    } else {
+                        run(command)
+                         d.commands.push({name: command.name, timeout: command.timeout, last: Date.now()})
+                        return await d.save()
+                    }
+    
+                        } else {
+                            const newd = new client.models.timeouts({
+                                user: message.author.id,
+                                commands: [{name: command.name, timeout: command.timeout, last: Date.now()}]
+                            })
+                            await newd.save()
+                            if(canrun ==true){
+                                canrun = false
+                                return await run(command)
+                            }
+                        }
+               } else {
+                   if(canrun ==true){
+                   run(command)
+                   }
+               }
                 }//command = true
             }
         }

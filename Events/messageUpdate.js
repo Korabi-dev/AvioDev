@@ -3,6 +3,6 @@ module.exports = {
     run: async(oldm, newm, client) => {
         if(oldm == newm) return;
         if(newm.author.bor) return;
-        client.editsnipes.set(newm.channel.id, newm)
+        client.editsnipes.set(newm.channel.id, oldm)
     }
 }

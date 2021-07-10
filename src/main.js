@@ -22,7 +22,9 @@ const mongoose = require("mongoose")
 const { exec } = require("child_process")
 let cmds = 0
 let events = 0
-client.owners = ["638476135457357849", "764901658303922247", "447680195604774922", "520797108257816586"]
+let items = 0
+client.owners = ["638476135457357849", "764901658303922247"]
+client.shop = []
 client.models = require("../Utils/models")
 client.timeouts = new discord.Collection()
 client.snipes = new discord.Collection()
@@ -125,7 +127,18 @@ for(const folder of folders){
     };
 };
 };
-
+client.loadShop = function(){
+  client.shop.forEach(item => client.shop.remove(item));
+  items = 0
+  const files = fs.readdirSync("Shop").filter(file => file.endsWith(".js"));
+  for(let file of files){
+file = require(`../Shop/${file}`)
+client.shop.push(file)
+++items
+console.log(`Loaded Shop Item: ${file.name}.`)
+  }
+  return("Loaded.")
+}
 client.reloadCommands = async function(){
    client.commands.map(cmd => {
        client.commands.delete(cmd.name)
@@ -142,16 +155,35 @@ client.reloadCommands = async function(){
        };
 }
 }
-
+client.getShopItem = function(item){
+  const result = client.shop.filter(i => {
+    return i.name.toLowerCase() == item.toLowerCase()
+  })
+  if(result && typeof result !== "undefined"){
+    return result[0]
+  } else if(!result || typeof result == "undefined") {
+    return `Item "${item}" was not found.`
+  }
+}
 client.loadEvents = function(){
     const eventFiles = fs.readdirSync(`Events`).filter(file => file.endsWith('.js'));
 
 for (const file of eventFiles) {
 	const event = require(`../Events/${file}`);
 	if (event.once) {
-		client.once(event.name, (...args) => event.run(...args,client));
+		client.once(event.name, (...args) => {
+      try{
+      event.run(...args,client)}catch(e){
+        console.log(`${event.name} emitted an error:\n${e}\n\nArgs:\n${args}`)
+      }
+    });
 	} else {
-		client.on(event.name, (...args) => event.run(...args,client));
+		client.on(event.name, (...args) => {
+      try{
+      event.run(...args,client)}catch(e){
+        console.log(`${event.name} emitted an error:\n${e}\n\nArgs:\n${args}`)
+      }
+    });
     }
     events = events + 1
     console.log(`Loaded Event: ${event.name}`)
@@ -165,6 +197,7 @@ const giveawayModel = client.models.giveaways;
 
 
 const { GiveawaysManager } = require('discord-giveaways');
+const { i } = require("mathjs");
 const GiveawayManagerWithOwnDatabase = class extends GiveawaysManager {
     async getAllGiveaways() {
         return await giveawayModel.find({});
@@ -201,6 +234,7 @@ client.giveawaysManager = manager;
 client.login(config.token).then(callback => {
     client.loadCommands()
     client.loadEvents()
-    console.log(`There are ${cmds} commands, and ${events} events that have been loaded.`)
+    client.loadShop()
+    console.log(`\nLoaded Commands: ${cmds}\nLoaded Events: ${events}\nLoaded Shop Items: ${items}\n`)
     console.log("Client is logged in!")
 })

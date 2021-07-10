@@ -10,6 +10,5 @@ module.exports = {
       message.content = content;
       message.mentions.users.delete(message.mentions.users.first().id);
       await client.emit("message", message);
-      message.react("😱");
     },
   };

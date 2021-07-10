@@ -4,7 +4,7 @@ module.exports = {
         if(!args[0]) return message.reply(client.embed("Error", "You must provide some arguments."))
         let e = "Error"
         try{
-         e = await evaluate(args.all)
+         e = evaluate(args.all)
     } catch(e) {
         return message.reply(client.embed("Error", "This equasion is invalid."))
     }
