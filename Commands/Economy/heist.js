@@ -4,7 +4,7 @@ module.exports = {
   timeout: 8640000000,
   run: async(client, message, args) => {
       let d = await client.models.economy.findOne({user: message.author.id})
-      let places = ["Bank", "Jewelry Store", "Belle Delphine Bath Water Fctory", "Chuch E Cheese", "Diaper Store", "Gas Station", "Phub Studio"]
+      let places = ["Bank", "Jewelry Store", "Belle Delphine Bath Water Factory", "Chuck E Cheese", "Diaper Store", "Gas Station", "Phub Studio"]
       if(d){
           if(d.wallet < 10000 && message.isOwner == false) return message.reply(client.embed("Error", "You must at least have $10000 in your wallet to start a heist."))
           let chance = Math.floor(random(1, 100))
