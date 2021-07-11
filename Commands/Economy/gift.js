@@ -46,7 +46,7 @@ module.exports = {
             })
             await d.save()
             await newd.save()
-            return message.reply(client.embed(`Success`, `You successfully gave ${user} 1x ${item}.`))
+            return message.reply(client.embed(`Success`, `You successfully gave ${user} 1x ${item.name}.`))
         }
     }
 }
