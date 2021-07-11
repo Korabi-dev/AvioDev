@@ -13,7 +13,8 @@ module.exports = {
           if(m < 10001) m = 20002
           let taxmoney = Math.floor((10000, m / 2))
           if(chance > 50 || message.isOwner == true){
-              const m = money * d.multiply
+              let m = money * d.multiply
+            m = Math.floor(m)
               d.wallet = d.wallet + m
               await d.save()
               return message.reply(client.embed("Hesit Complete", `You robbed a ${places.random()} and got $${m}`))

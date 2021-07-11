@@ -10,7 +10,7 @@ module.exports = {
             })
             if(items.length < 1) return message.reply(client.embed("BackPack", `Your packpack is empty.`))
             let split = splitMessage(items.join("\n"))
-            let index = 0
+            let index = 1
             let all = split.length
             split.forEach(async(msgg) => {
               await message.reply(client.embed(`Backpack (${index}/${all})`, msgg))

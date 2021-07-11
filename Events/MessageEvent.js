@@ -7,6 +7,11 @@ module.exports = {
     name: "message",
     run: async(message, client) => {
          const economy = await client.models.economy.findOne({user: message.author.id})
+         if(economy && !message.author.bot){
+             if(economy.bank < 0) economy.bank = 0
+             if(economy.wallet < 0) economy.wallet = 0
+             await economy.save()
+         }
         if(!economy && !message.author.bot){
             const newe = new client.models.economy({
                 user: message.author.id,
