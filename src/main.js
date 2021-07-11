@@ -7,7 +7,7 @@ client.commands = new discord.Collection();
 require("discord-buttons")(client)
 const AntiSpam = require("../Utils/antispam");
 process.on('unhandledRejection', error => {
-if(error.message.toLowerCase().includes("unknown message")) {
+if(error.message.toLowerCase().includes("unknown")) {
   return;
 }else {
   console.log(error)

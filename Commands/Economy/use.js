@@ -10,7 +10,9 @@ module.exports = {
             })
             if(item[0]){
                 item = item[0]
+                if(message.isOwner == false){
                 d.backpack.remove(item)
+                }
                 d.multiply = item.multiplier + d.multiply
                 await d.save()
                 return message.reply(client.embed("Item used", `You used a ${item.name} for a multiplier of +${item.multiplier}.`))
