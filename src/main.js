@@ -29,6 +29,7 @@ client.models = require("../Utils/models")
 client.timeouts = new discord.Collection()
 client.snipes = new discord.Collection()
 client.editsnipes = new discord.Collection()
+client.categories = new discord.Collection()
 const manager_start = async() => {
   await exec("java -jar Lavalink.jar")
 client.manager = new Manager({
@@ -138,22 +139,6 @@ client.shop.push(file)
 console.log(`Loaded Shop Item: ${file.name}.`)
   }
   return("Loaded.")
-}
-client.reloadCommands = async function(){
-   client.commands.map(cmd => {
-       client.commands.delete(cmd.name)
-   })
-   const folders = fs.readdirSync(`Commands`);
-   for(const folder of folders){
-       const files = fs.readdirSync(`Commands/${folder}`).filter(file => file.endsWith(".js"));
-       for(const file of files){
-           const command = require(`../Commands/${folder}/${file}`)
-           if(!command.category) {command.category = folder};
-           if(!command.name) {command.name = file.toLowerCase().replace(".js", "")};
-           client.commands.set(command.name, command)
-           console.log("Reloaded Command:", command.name)
-       };
-}
 }
 client.getShopItem = function(item){
   const result = client.shop.filter(i => {
