@@ -1,5 +1,5 @@
 const fetch = require("node-fetch");
-const config = require("../../src/config.json")
+const config = process.env
 module.exports = {
     run: async(client, message, args) => {
         var contributors = await (
