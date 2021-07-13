@@ -43,7 +43,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "npm update && pm2 kill && pm2 start src/main.js"
+    "start": "node src/main.js"
   },
   "repository": {
     "type": "git",
