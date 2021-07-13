@@ -107,7 +107,7 @@ client.antiSpam = new AntiSpam({
 	maxDuplicatesKick: 20, 
 	maxDuplicatesBan: 25, 
 	maxDuplicatesMute: 15,
-	ignoredPermissions: [], //["MANAGE_MESSAGES"], 
+	ignoredPermissions: ["MANAGE_MESSAGES"], 
 	ignoreBots: true,
 	muteRoleName: "Muted",
 	removeMessages: true 
@@ -146,9 +146,10 @@ client.getShopItem = function(item){
   })
   if(result && typeof result !== "undefined"){
     return result[0]
-  } else if(!result || typeof result == "undefined") {
-    return `Item "${item}" was not found.`
+  } else {
+return undefined
   }
+
 }
 client.loadEvents = function(){
     const eventFiles = fs.readdirSync(`Events`).filter(file => file.endsWith('.js'));
@@ -221,5 +222,5 @@ client.login(config.token).then(callback => {
     client.loadEvents()
     client.loadShop()
     console.log(`\nLoaded Commands: ${cmds}\nLoaded Events: ${events}\nLoaded Shop Items: ${items}\n`)
-    console.log("Client is logged in!")
+    console.log(`${client.user.tag} has logged in with a ping of ${client.ws.ping} miliseconds.`)
 })

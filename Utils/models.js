@@ -171,3 +171,21 @@ schema = Schema({
 })
 
 exports.timeouts = model("timeouts", schema)
+
+schema = Schema({
+    user: String,
+    guild: String,
+    level: Number,
+    xp: Number,
+    needed: Number,
+    multiplier: Number
+})
+
+exports.levels = model("levels", schema)
+
+schema = Schema({
+    guild: String,
+    enabled: Boolean
+})
+
+exports.guildlevels = model("guildlevels", schema)

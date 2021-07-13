@@ -5,10 +5,12 @@
   "main": "src/main.js",
   "dependencies": {
     "12": "^1.0.2",
+    "@extreme_hero/deeptype": "^1.0.1",
+    "@korabi20/math-functions": "^1.2.9",
     "axios": "^0.21.1",
     "bad-words": "^3.0.4",
-    "discord-buttons": "^3.2.1",
     "discord-anti-spam": "^2.5.1",
+    "discord-buttons": "^3.2.1",
     "discord-giveaways": "^4.5.1",
     "discord-inline-replys": "^1.0.3",
     "discord-screenshot": "^1.0.0",

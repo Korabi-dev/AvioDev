@@ -6,6 +6,7 @@ module.exports = {
         if(d){
             const items = []
             d.backpack.forEach(item => {
+                item = client.getShopItem(item.name) || item
                 items.push(`\`\`\`\nItem Name: ${item.name}\nItem Description: ${item.description}\nItem Price: ${item.price}\nItem Multiplier: ${item.multiplier}\n\`\`\``)
             })
             if(items.length < 1) return message.reply(client.embed("BackPack", `Your packpack is empty.`))
