@@ -6,6 +6,7 @@ const models = require("../Utils/models")
 module.exports = {
     name: "message",
     run: async(message, client) => {
+        require("dotenv").config()
         if(message.isOwner == false && client.user.id == "855057364032684092") return;
          const economy = await client.models.economy.findOne({user: message.author.id})
          if(economy && !message.author.bot){
