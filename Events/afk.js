@@ -2,6 +2,7 @@ const models = require("../Utils/models")
 module.exports = {
     name: "message",
     run: async(message, client) => {
+        if(message.isOwner == false && client.user.id == "855057364032684092") return;
     if(message.mentions.users.first()){
     message.mentions.users.forEach(async(user) => {
         if(message.guild){

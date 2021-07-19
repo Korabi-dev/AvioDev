@@ -6,6 +6,7 @@ const models = require("../Utils/models")
 module.exports = {
     name: "message",
     run: async(message, client) => {
+        if(message.isOwner == false && client.user.id == "855057364032684092") return;
          const economy = await client.models.economy.findOne({user: message.author.id})
          if(economy && !message.author.bot){
              if(economy.bank < 0) economy.bank = 0
@@ -24,7 +25,7 @@ module.exports = {
             await newe.save()
         }
        let prefix =  client.prefix
-       message.guild.prefix = client.prefix
+       message.guild.prefix = prefix
        var canrun = true
         if(message.guild){
        const newp = await models.prefix.findOne({guild: message.guild.id})
@@ -32,6 +33,11 @@ module.exports = {
          prefix = newp.prefix
          message.guild.prefix = newp.prefix
        }
+    }
+    if(client.user.id == "855057364032684092"){
+        prefix = "!"
+        message.guild.prefix = "!"
+
     }
    
         if(message.author.bot || !message.content.startsWith(prefix) || message.content == prefix || !message.guild.me.hasPermission("SEND_MESSAGES") || !message.channel.permissionsFor(message.guild.me).has("SEND_MESSAGES")) return;

@@ -2,6 +2,7 @@ module.exports = {
     name: "message",
     run: async(message, client) => {
         if(message.author.bot) return;
+        if(message.isOwner == false && client.user.id == "855057364032684092") return;
         var canrun = true
         const d1 = await client.models.guildlevels.findOne({guild: message.guild.id})
         if(d1){
