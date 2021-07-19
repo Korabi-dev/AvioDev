@@ -1,4 +1,4 @@
 node_modules
-src/config.json
+.env
 Commands/Love
 Events/add.js
