@@ -55,10 +55,14 @@ if(client.owners.includes(message.author.id)){
    await command.run(client, message, args)
    stop()
     }catch(e){
+        try {
         const channel = client.channels.cache.get("860961529390039050")
         const embed = client.embed("Error", ` Message:\n\`\`\`js\n${require("util").inspect(e)}\`\`\`\nCommand: \`\`\`${command.name}\`\`\`\nUser: \`\`\`${message.author.tag}\`\`\`\nUser ID: \`\`\`${message.author.id}\`\`\`\nDev | Owner: \`\`\`${message.isOwner ? "Yes" : "No"}\`\`\`\nGuild: \`\`\`${message.guild}\`\`\`\nGuild ID: \`\`\`${message.guild.id}\`\`\` `).setTimestamp()
         channel.send(embed)
         message.reply(client.embed("Error (Developer Level)", `Error:\n\n\`\`\`js\n${require("util").inspect(e)}\n\`\`\`\n\nCommand: ${command.name}`).setFooter("Please report this to a developer."))
+        }catch(err) {
+            console.error(e)
+        }
     }
  }
     
@@ -72,6 +76,12 @@ if(client.owners.includes(message.author.id)){
          }
         }
 
+        message.error = function(d, c) {
+            const embed = client.embed("Error")
+            if(d) embed.setDescription(d)
+            if(c) embed.setColor(c)
+            message.reply(embed)
+            }
 
 let [commandName, ...args] = message.content
         .slice(prefix.length)

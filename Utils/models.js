@@ -189,3 +189,10 @@ schema = Schema({
 })
 
 exports.guildlevels = model("guildlevels", schema)
+
+schema = Schema({
+    name: String,
+    users: Array
+})
+
+exports.highlights = model("highlights", schema)

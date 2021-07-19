@@ -1,6 +1,6 @@
 const discord = require("discord.js");
 require("discord-inline-replys")
-const client = new discord.Client({ws: {intents: discord.Intents.ALL}});
+const client = new discord.Client();
 const { Manager } = require("erela.js")
 const Spotify = require("erela.js-spotify")
 client.commands = new discord.Collection();
@@ -16,8 +16,9 @@ if(error.message.toLowerCase().includes("unknown")) {
 const fs = require("fs");
 let maincolor = "#7289d5";
 client.maincolor = maincolor
-client.prefix = "!"
+require("dotenv").config()
 const config = process.env
+client.prefix = config.prefix
 const mongoose = require("mongoose")
 const { exec } = require("child_process")
 let cmds = 0
@@ -92,7 +93,12 @@ if(d){embed.description = d};
 if(f){embed.footer = f};
 return embed;
 };
-
+client.error = function(d, m, c) {
+const embed = client.embed("Error")
+if(d) embed.setDescription(d)
+if(c) embed.setColor(c)
+m.reply(embed)
+}
 client.antiSpam = new AntiSpam({
 	warnThreshold: 4,
 	muteThreshold: 6, 
