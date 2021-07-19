@@ -5,7 +5,7 @@ module.exports = {
         args[0] = args[0].toLowerCase()
         if(!subcommands.includes(args[0])) return message.error(`You need to provide a **valid** subcommand say \`${message.guild.prefix}highlights subcommands\` to view all valid subcommands.`)
         const option = args[0]
-        if(option != "list"){
+        if(option != "list" && option !="subcommands"){
         if(!args[1]) return message.error("You need to provide a highlight name.")
     }
     if(args[1]){
@@ -52,6 +52,9 @@ module.exports = {
         }else {
             message.reply(client.embed("Your highlights", `\`${display.join("`\n")}\``))
         }
+        } else if(option == "subcommands"){
+            subcommands.remove("subcommands")
+            message.reply(client.embed("Subcommands", `\`${subcommands.join("`, `")}\`.`))
         }
         }
 }
