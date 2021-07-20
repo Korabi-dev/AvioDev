@@ -25,6 +25,7 @@ module.exports = {
             })
             await newe.save()
         }
+        try{
        let prefix = process.env.prefix
        message.guild.prefix = prefix
        var canrun = true
@@ -35,6 +36,9 @@ module.exports = {
          message.guild.prefix = newp.prefix
        }
     }
+}catch(e){
+    return;
+}
     if(client.user.id == "855057364032684092"){
         prefix = "!"
         message.guild.prefix = "!"
