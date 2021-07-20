@@ -225,7 +225,7 @@ client.giveawaysManager = manager;
 const express = require("express")
 const app = new express()
 const topgg = require("@top-gg/sdk")
-const webhook = new topgg.Webhook("")
+const webhook = new topgg.Webhook(process.env.topggauth)
 app.listen(process.env.PORT,()=> {
 console.log("Webhook is up")
 })
