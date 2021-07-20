@@ -226,7 +226,7 @@ const express = require("express")
 const app = new express()
 const topgg = require("@top-gg/sdk")
 const webhook = new topgg.Webhook("")
-app.listen(process.env.port,()=> {
+app.listen(process.env.PORT,()=> {
 console.log("Webhook is up")
 })
 app.get('/', webhook.listener(vote => {
