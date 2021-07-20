@@ -25,7 +25,7 @@ module.exports = {
             })
             await newe.save()
         }
-       let prefix =  client.prefix
+       let prefix = process.env.prefix
        message.guild.prefix = prefix
        var canrun = true
         if(message.guild){

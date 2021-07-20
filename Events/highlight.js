@@ -9,7 +9,7 @@ module.exports = {
                 doc.users.forEach(user => {
                     try{
                         if(user == message.author.id) return;
-                        client.users.cache.get(user).send(client.embed("Highlight", `${message.author} mentioned [${doc.name}](${message.url}) (one of your highlights) in ${message.channel}`)).catch(e => {return;})
+                        client.users.cache.get(user).send(client.embed("Highlight", `${message.author} mentioned [${doc.name}](${message.url}) in ${message.channel}`)).catch(e => {return;})
                     }catch(e) {
                         return;
                     }
