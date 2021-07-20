@@ -196,3 +196,10 @@ schema = Schema({
 })
 
 exports.highlights = model("highlights", schema)
+
+schema = Schema({
+    user: String,
+    votes: [],
+    last: Number
+})
+exports.votes = model("vote", schema)

@@ -229,9 +229,26 @@ const webhook = new topgg.Webhook(process.env.topggauth)
 app.listen(process.env.PORT,()=> {
 console.log("Webhook is up")
 })
-app.all('/', webhook.listener(vote => { 
-  console.log(vote)
-  client.channels.cache.get("867052978748653619").send(`<@${vote.user}> has voted, ty.`)
+app.all('/', webhook.listener(async(vote) => {
+const channel = await message.channels.cache.get("867052978748653619") 
+if(vote.type == "test"){
+channel.send(`@<${vote.user}> has run a test and it suceeded.`)
+}else{
+  const doc = await client.models.votes.findOne({user: vote.user})
+  if(doc){
+    doc.votes.push({time: Date.now()})
+    doc.last = Date.now()
+    await doc.save()
+  }else {
+    const newd = new client.models.votes({
+      user: vote.user,
+      votes: [{time: Date.now()}],
+      last: Date.now()
+    })
+    await newd.save()
+  }
+channel.send(client.embed("Vote!", `Thanks to ${client.users.cache.get(vote.user)?.username || `<@${vote.user}>`} for voting <3`))
+}
 }))
 client.login(config.token).then(callback => {
     client.loadCommands()

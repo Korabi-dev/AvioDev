@@ -154,7 +154,21 @@ let [commandName, ...args] = message.content
                     return message.reply(client.embed("Error", "You can't use this command in dms."))
                 }
                 
-
+                    if(command.votes){
+                        const vote = await client.models.votes.findOne({user: message.aurhor.id})
+                    console.log(vote)
+                        if(vote){
+                            if(doc.votes.length < command.votes){
+                                canrun = false
+                                return message.reply(client.embed("Error", `You must have voted for avio on [top.gg](https://top.gg/bot/736933259178541177) ${command.votes - vote.votes.length} more times to use this command.`))
+                            }
+                        }
+                        if(!vote) {
+                   canrun = false
+                  return message.reply(client.embed("Error", `You must have voted for avio on [top.gg](https://top.gg/bot/736933259178541177) ${command.votes} more times to use this command.`))
+                        
+                    }
+                }
                     if(command.permissions){
                         command.permissions.forEach(perm => {
                             if(!message.member.hasPermission(perm) && !message.isOwner) {
