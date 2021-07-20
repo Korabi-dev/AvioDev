@@ -6,6 +6,7 @@ const models = require("../Utils/models")
 module.exports = {
     name: "message",
     run: async(message, client) => {
+        try{
         require("dotenv").config()
         let prefix = process.env.prefix
         if(message.isOwner == false && client.user.id == "855057364032684092") return;
@@ -26,7 +27,6 @@ module.exports = {
             })
             await newe.save()
         }
-        try{
        message.guild.prefix = prefix
        var canrun = true
         if(message.guild){
@@ -36,9 +36,6 @@ module.exports = {
          message.guild.prefix = newp.prefix
        }
     }
-}catch(e){
-    return;
-}
     if(client.user.id == "855057364032684092"){
         prefix = "!"
         message.guild.prefix = "!"
@@ -232,6 +229,10 @@ let [commandName, ...args] = message.content
                    }
                }
                 }//command = true
+
+            }catch(e){
+
+            }
             }
         }
     
