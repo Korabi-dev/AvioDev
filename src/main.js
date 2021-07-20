@@ -230,6 +230,7 @@ app.listen(process.env.PORT,()=> {
 console.log("Webhook is up")
 })
 app.get('/', webhook.listener(vote => {
+  console.log(vote)
   client.channels.cache.get("867052978748653619").send(`<@${vote.user}> has voted, ty.`)
 }))
 client.login(config.token).then(callback => {
