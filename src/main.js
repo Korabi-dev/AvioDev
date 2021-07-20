@@ -222,7 +222,16 @@ const manager = new GiveawayManagerWithOwnDatabase(client, {
     }
 });
 client.giveawaysManager = manager;
-
+const express = require("express")
+const app = new express()
+const topgg = require("@top-gg/sdk")
+const webhook = new topgg.Webhook("")
+app.listen(process.env.port,()=> {
+console.log("Webhook is up")
+})
+app.get('/', webhook.listener(vote => {
+  client.channels.cache.get("867052978748653619").send(`<@${vote.user}> has voted, ty.`)
+}))
 client.login(config.token).then(callback => {
     client.loadCommands()
     client.loadEvents()
