@@ -230,7 +230,7 @@ app.listen(process.env.PORT,()=> {
 console.log("Webhook is up")
 })
 app.all('/', webhook.listener(async(vote) => {
-const channel = await message.channels.cache.get("867052978748653619") 
+const channel = await client.channels.cache.get("867052978748653619") 
 if(vote.type == "test"){
 channel.send(`@<${vote.user}> has run a test and it suceeded.`)
 }else{
