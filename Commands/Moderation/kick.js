@@ -15,7 +15,7 @@ module.exports = {
               }else if(user){
                   if(user.permissions.has("MANAGE_MESSAGES")) return message.reply(client.embed("Error", "You cannot kick a moderator."))
                   user.kick({reason: reason}).then(usr => {
-                      message.reply(client.embed("Success!", `Kicked user ${usr.user.embedtag}`))
+                      message.reply(client.embed("Success!", `Kicked user ${usr}`))
                   }).catch(e => {
                       message.reply(client.embed("Error", "Could Not Kick This User."))
                   })
@@ -23,7 +23,7 @@ module.exports = {
                } else if(target) {
                 if(target.permissions.has("MANAGE_MESSAGES")) return message.reply(client.embed("Error", "You cannot kick a moderator."))
                 target.kick({reason: reason}).then(usr => {
-                    message.reply(client.embed("Success!", `Kicked user ${usr.tag}`))
+                    message.reply(client.embed("Success!", `Kicked user ${usr}`))
                 }).catch(e => {
                     message.reply(client.embed("Error", "Could Not Kick This User."))
                 })

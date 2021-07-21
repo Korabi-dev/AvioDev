@@ -13,14 +13,14 @@ module.exports = {
             const user = message.guild.members.cache.get(args[0])
             if(user && user.permissions.has("MANAGE_MESSAGES"))return message.reply(client.embed("Error", "You cannot ban a moderator."))
               message.guild.members.ban(args[0], {reason: reason}).then(user => {
-                    message.reply(client.embed("Success!", `Banned user ${user.tag}`))
+                    message.reply(client.embed("Success!", `Banned user ${user}`))
                 }).catch(e => {
                     message.reply(client.embed("Error", "Could Not Ban This User."))  
                 })
                } else if(target) {
                 if(target.permissions.has("MANAGE_MESSAGES")) return message.reply(client.embed("Error", "You cannot ban a moderator."))
   message.guild.members.ban(target.id, {reason: reason}).then(user => {
-                    message.reply(client.embed("Success!", `Banned user ${user.tag}`))
+                    message.reply(client.embed("Success!", `Banned user ${user}`))
                 }).catch(e => {
                     message.reply(client.embed("Error", "Could Not Ban This User."))  
                 })

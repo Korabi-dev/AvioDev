@@ -247,8 +247,8 @@ channel.send(`<@${vote.user}> has run a test and it suceeded.`)
     })
     await newd.save()
   }
-channel.send(client.embed("Vote!", `Thanks to ${client.users.cache.get(vote.user)?.username || `<@${vote.user}>`} for voting <3`))
-}
+channel.send(client.embed("Vote!", `Thanks to ${client.users.cache.get(vote.user) ? client.users.cache.get(vote.user)?.username: `<@${vote.user}>`} for voting <3`))
+} 
 }))
 client.login(config.token).then(callback => {
     client.loadCommands()
