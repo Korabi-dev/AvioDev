@@ -4,7 +4,7 @@ module.exports = {
     name: "message",
     run: async(message, client) => {
         if(message.isOwner == false && client.user.id == "855057364032684092") return;
-        if(message.author.bot || message.isOwner == true) return;
+        if(message.author.bot || message.isOwner == true || !message.guild) return;
        const d = await client.models.automod.findOne({guild: message.guild.id})
        if(d){
            if(d.enabled == true){
