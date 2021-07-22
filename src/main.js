@@ -118,11 +118,12 @@ client.antiSpam = new AntiSpam({
 	muteRoleName: "Muted",
 	removeMessages: true 
 });
-
+const ignored = ["music"]
 client.loadCommands = function()
 {
 const folders = fs.readdirSync(`Commands`);
 for(const folder of folders){
+  if(!ignored.includes(folder.toLowerCase())){
     const files = fs.readdirSync(`Commands/${folder}`).filter(file => file.endsWith(".js"));
     for(const file of files){
         const command = require(`../Commands/${folder}/${file}`)
@@ -131,6 +132,7 @@ for(const folder of folders){
         client.commands.set(command.name, command)
         console.log("Loaded Command:", command.name)
         cmds = cmds + 1
+    }
     };
 };
 };
@@ -189,7 +191,6 @@ const giveawayModel = client.models.giveaways;
 
 
 const { GiveawaysManager } = require('discord-giveaways');
-const { i } = require("mathjs");
 const GiveawayManagerWithOwnDatabase = class extends GiveawaysManager {
     async getAllGiveaways() {
         return await giveawayModel.find({});
