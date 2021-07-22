@@ -203,3 +203,10 @@ schema = Schema({
     last: Number
 })
 exports.votes = model("vote", schema)
+
+schema = Schema({
+    active: Boolean,
+    last: Number,
+    restarts: Number
+})
+exports.restarts = model("restarts", schema)

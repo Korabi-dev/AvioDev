@@ -255,8 +255,4 @@ client.login(config.token).then(callback => {
     client.loadEvents()
     client.loadShop()
     console.log(`\nLoaded Commands: ${cmds}\nLoaded Events: ${events}\nLoaded Shop Items: ${items}\n`)
-    setTimeout(function(){
-      console.log(`${client.user.tag} has logged in with a ping of ${client.ws.ping} miliseconds.`)
-    }, 1e3)
-
 })
