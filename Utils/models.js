@@ -157,11 +157,11 @@ exports.automod = model("automod", schema)
 
 schema = Schema({
 user: String,
-bank: Number,
-wallet: Number,
-passive: Boolean,
-multiply: Number,
-backpack: Array
+bank: {type: Number, default: 0},
+wallet: {type: Number, default: 0},
+passive: {type: Boolean, default: false},
+multiply: {type: Number, default: 1},
+backpack: {type: Array, default: []}
 })
 exports.economy = model("economy", schema)
 
@@ -210,3 +210,23 @@ schema = Schema({
     restarts: Number
 })
 exports.restarts = model("restarts", schema)
+
+schema = Schema({
+amount:{
+    type: Number,
+    default: 0
+},
+user: {
+    type: String
+},
+total: {
+    type: Number,
+    default: 0
+},
+last:{
+    type: Number,
+    default: 2
+}
+})
+
+exports.boxes = model("boxes", schema)

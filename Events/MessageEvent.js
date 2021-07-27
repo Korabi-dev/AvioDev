@@ -67,9 +67,11 @@ if(client.owners.includes(message.author.id)){
         const channel = client.channels.cache.get("860961529390039050")
         const embed = client.embed("Error", ` Message:\n\`\`\`js\n${require("util").inspect(e)}\`\`\`\nCommand: \`\`\`${command.name}\`\`\`\nUser: \`\`\`${message.author.tag}\`\`\`\nUser ID: \`\`\`${message.author.id}\`\`\`\nDev | Owner: \`\`\`${message.isOwner ? "Yes" : "No"}\`\`\`\nGuild: \`\`\`${message.guild}\`\`\`\nGuild ID: \`\`\`${message.guild.id}\`\`\` `).setTimestamp()
         channel.send(embed)
-        message.reply(client.embed("Error (Developer Level)", `Error:\n\n\`\`\`js\n${require("util").inspect(e)}\n\`\`\`\n\nCommand: ${command.name}`).setFooter("Please report this to a developer."))
+        message.reply(client.embed("Error (Developer Level)", `Error:\n\n\`\`\`js\n${require("util").inspect(e)}\n\`\`\`\n\nCommand: ${command.name}`).setFooter("Please report this to a developer.")).catch(er => {
+            console.error(require("util").inspect(e))
+        })
         }catch(err) {
-            console.error(e)
+            console.error(require("util").inspect(e))
         }
     }
  }

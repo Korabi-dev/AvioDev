@@ -2,3 +2,4 @@ node_modules
 .env
 Commands/Love
 Events/add.js
+Commands/Testing DB
