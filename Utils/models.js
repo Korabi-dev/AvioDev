@@ -1,5 +1,5 @@
 let { Schema, model, mongoose } = require("mongoose");
-
+require("dotenv").config()
 schema = Schema({
     guild: String,
     prefix: String,
@@ -230,3 +230,19 @@ last:{
 })
 
 exports.boxes = model("boxes", schema)
+
+schema = Schema({
+    guild: {
+        type: String,
+        required: true
+    },
+    words: {
+        type: Array,
+        default: []
+    },
+    emabled: {
+        type: Boolean,
+        default: true
+    }
+})
+exports.words = model("words", schema)

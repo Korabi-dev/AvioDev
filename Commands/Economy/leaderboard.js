@@ -7,7 +7,7 @@ module.exports = {
         lb.forEach(user => {
             if(index <= 10 && index <= lb.length && (user.bank + user.wallet) > 0){
             ++index
-            embed.addField(`\`${client.users.cache.get(user.user).username || "Unknown User"}\``, `$${user.bank + user.wallet}`)
+            embed.addField(`\`${client.users.cache.get(user.user)?.username || "Unknown User"}\``, `$${user.bank + user.wallet}`)
             }
         })
         embed.setTitle(`Top ${index} Economy Users`)

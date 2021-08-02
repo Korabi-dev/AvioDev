@@ -10,7 +10,7 @@ module.exports = {
             embed.addField(`\`${client.users.cache.get(user.user).username || "Unknown User"}\``, user.level)
             }
         })
-        embed.setDescription(`Top ${index} users for ${message.guild.username}`)
+        embed.setDescription(`Top ${index} users for ${message.guild.name}`)
         return message.reply(embed)
     }
 }
