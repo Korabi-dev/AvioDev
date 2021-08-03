@@ -59,7 +59,7 @@ module.exports = {
       }
   })
 
-  const embed = client.embed(`${client.name} Commands List!`, `${client.name} currently has **${total}** public commands.\n[Check out the github repository](https://github.com/Korabi-dev/AvioDev)`).setFooter(`Thanks for using ${client.name}! Use ${message.guild.prefix}help <command> to get help with a specific command.`).setURL("https://avio-dashboard.glitch.me/commands")
+  const embed = client.embed(`${client.name} Commands List!`, `${client.name} currently has **${total}** public commands.\n[Check out the github repository](https://github.com/Korabi-dev/AvioDev)`).setFooter(`Thanks for using ${client.name}! Use ${message.guild.prefix}help <command> to get help with a specific command.`).setURL("https://aviodev-production.up.railway.app/dashboard/commands")
   if(owner.length && message.isOwner == true){
     embed.setDescription(`${client.name} currently has **${total}** public commands, and **${total + devc}** total commands.\n[Check out the github repository](https://github.com/Korabi-dev/AvioDev)`)
     const dev = owner.join(", ")
@@ -142,4 +142,3 @@ message.reply(embed)
       }
     }
 }
-//commit
