@@ -10,7 +10,21 @@ process.on('unhandledRejection', error => {
 if(error.message.toLowerCase().includes("unknown")) {
   return;
 }else {
-  console.log(error)
+  const { Webhook, MessageBuilder } = require('discord-webhook-node');
+const hook = new Webhook(process.env.webhook);
+const IMAGE_URL = 'https://railway.app/brand/logo-light.png';
+hook.setUsername('Railway');
+hook.setAvatar(IMAGE_URL);
+const embed = new MessageBuilder()
+.setTitle('Railway: Error')
+.setAuthor('Korab Arifi', 'https://avatars.githubusercontent.com/u/69105206?v=4')
+.addField(':question: Status', 'ERROR', true)
+.addField('🌳 Environment', 'production', true)
+.addField('🪵 Logs', '[Click here](https://railway.app/project/d8f2ea3f-b16d-43fc-a5aa-6b19342d9a2a/deployments?id=d8f2ea3f-b16d-43fc-a5aa-6b19342d9a2a)', true)
+.addField(':x: Error:', require("util").inspect(error))
+.setColor('#880808')
+ 
+hook.send(embed);
 }
 });
 const fs = require("fs");
@@ -256,7 +270,6 @@ channel.send(client.embed("Vote!", `Thanks to ${client.users.cache.get(vote.user
 } 
 }))
 app.all("/commands", (req, res) => {
-  res.send("gotcha")
   res.redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 })
 client.login(config.token).then(callback => {

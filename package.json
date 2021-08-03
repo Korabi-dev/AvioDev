@@ -15,6 +15,7 @@
     "discord-giveaways": "^4.5.1",
     "discord-inline-replys": "^1.0.3",
     "discord-screenshot": "^1.0.0",
+    "discord-webhook-node": "^1.1.8",
     "discord.js": "^12.5.3",
     "discord.js-lavalink": "^3.0.1",
     "distube": "^2.8.15",
