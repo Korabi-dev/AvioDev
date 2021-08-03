@@ -255,7 +255,7 @@ channel.send(`<@${vote.user}> has run a test and it suceeded.`)
 channel.send(client.embed("Vote!", `Thanks to ${client.users.cache.get(vote.user) ? client.users.cache.get(vote.user)?.username: `<@${vote.user}>`} for voting <3`))
 } 
 }))
-app.get("/dashboard/commands", (req, res) => {
+app.all("/commands", (req, res) => {
   res.send("gotcha")
   res.redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 })
