@@ -18,7 +18,7 @@ module.exports = {
                 timeRemaining: "Time remaining: **{duration}**!",
                 inviteToParticipate: "React with 🎉 to join!",
                 winMessage: "Congratulations, {winners}! You have won **{prize}**!",
-                embedFooter: `${client.user.username} Giveway system`,
+                embedFooter: `${client.name} Giveway system`,
                 noWinner: "Giveaway cancelled, no participations.",
                 hostedBy: "Hosted by: {user}",
                 winners: "Winner(s)",

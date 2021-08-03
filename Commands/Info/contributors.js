@@ -18,6 +18,6 @@ module.exports = {
                 inline: true,
               })
           );
-              message.reply(client.embed(`${client.user.username}'s Github Contributors`, `All the people that have made ${client.user.username} possible!`).addFields(contributors))
+              message.reply(client.embed(`${client.name}'s Github Contributors`, `All the people that have made ${client.name} possible!`).addFields(contributors))
     }
 }

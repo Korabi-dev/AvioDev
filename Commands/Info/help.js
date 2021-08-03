@@ -59,9 +59,9 @@ module.exports = {
       }
   })
 
-  const embed = client.embed(`${client.user.username} Commands List!`, `${client.user.username} currently has **${total}** public commands.\n[Check out the github repository](https://github.com/Korabi-dev/AvioDev)`).setFooter(`Thanks for using ${client.user.username}! Use ${message.guild.prefix}help <command> to get help with a specific command.`).setURL("https://avio-dashboard.glitch.me/commands")
+  const embed = client.embed(`${client.name} Commands List!`, `${client.name} currently has **${total}** public commands.\n[Check out the github repository](https://github.com/Korabi-dev/AvioDev)`).setFooter(`Thanks for using ${client.name}! Use ${message.guild.prefix}help <command> to get help with a specific command.`).setURL("https://avio-dashboard.glitch.me/commands")
   if(owner.length && message.isOwner == true){
-    embed.setDescription(`${client.user.username} currently has **${total}** public commands, and **${total + devc}** total commands.\n[Check out the github repository](https://github.com/Korabi-dev/AvioDev)`)
+    embed.setDescription(`${client.name} currently has **${total}** public commands, and **${total + devc}** total commands.\n[Check out the github repository](https://github.com/Korabi-dev/AvioDev)`)
     const dev = owner.join(", ")
     embed.addField("🛠️ Developer:",dev)
   }

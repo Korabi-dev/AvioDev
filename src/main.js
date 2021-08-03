@@ -31,6 +31,7 @@ client.timeouts = new discord.Collection()
 client.snipes = new discord.Collection()
 client.editsnipes = new discord.Collection()
 client.categories = new discord.Collection()
+client.name = "Avio"
 const manager_start = async() => {
   await exec("java -jar Lavalink.jar")
 client.manager = new Manager({

@@ -134,7 +134,7 @@ let [commandName, ...args] = message.content
                 const d = await client.models.blacklist.findOne({user: message.author.id})
                 if(d && message.isOwner == false){
                     stop()
-                    if(d.active == true) return message.reply(client.embed("Error", `You are blacklisted from using ${client.user.username}.`).setColor("RED"))
+                    if(d.active == true) return message.reply(client.embed("Error", `You are blacklisted from using ${client.name}.`).setColor("RED"))
                 } 
                 const d2 = await client.models.blacklist.findOne({user: message.guild.id})
                 if(d2 &&!message.isOwner){
