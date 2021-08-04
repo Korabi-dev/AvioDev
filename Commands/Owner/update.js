@@ -13,6 +13,8 @@ module.exports = {
         if(input[3]) embed.setFooter(input[3].trim())
         message.delete()
         const m = await channel.send("@everyone,", embed)
-        if(input[4]) m.react(input[4].trim())
+        if(input[4]) m.react(input[4].trim()).catch(e => {
+            message.channel.send(client.embed("Error", "Could not react to the message with \\" + input[4]))
+        })
     }
 }
