@@ -136,7 +136,7 @@ client.antiSpam = new AntiSpam({
 	muteRoleName: "Muted",
 	removeMessages: true 
 });
-const ignored = ["music"]
+const ignored = []
 client.loadCommands = function()
 {
 const folders = fs.readdirSync(`Commands`);
