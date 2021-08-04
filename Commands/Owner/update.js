@@ -1,7 +1,7 @@
 module.exports = {
     owner: true,
     run: async(client, message, args) => {
-        const channel_id = "867787276586188861"
+        const channel_id = "741222883522773023"
         const channel = client.channels.cache.get(channel_id)
         if(!channel) return message.reply(client.embed("Error","Could not find required channel with id: " + channel_id))
         if(!args[0]) return message.reply(client.embed("Error", `Invalid syntax, valid syntax: \`${message.guild.prefix}update <Description> | [Color] | [Title] | [Footer] | [Reaction]\``))
