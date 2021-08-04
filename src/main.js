@@ -7,7 +7,7 @@ client.commands = new discord.Collection();
 require("discord-buttons")(client)
 const AntiSpam = require("../Utils/antispam");
 process.on('unhandledRejection', error => {
-if(error.message.toLowerCase().includes("unknown")) {
+if(error.message.toLowerCase().includes("unknown") || error.message.toLowerCase().includes("discord")) {
   return;
 }else {
   const { Webhook, MessageBuilder } = require('discord-webhook-node');
