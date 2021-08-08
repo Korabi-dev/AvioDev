@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
 module.exports = {
   run: async (client, message, args) => {
-    if (!args[0]) message.reply(client.embed("Error", "You haven't specified a country"));
+    if (!args[0]) return message.reply(client.embed("Error", "You haven't specified a country"));
     fetch(`https://disease.sh/v3/covid-19/countries/${args.all}`)
       .then((info) => info.json())
       .then((json) => {
