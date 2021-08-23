@@ -7,7 +7,8 @@ module.exports = {
     name: "message",
     run: async(message, client) => {
         try{
-        
+        require("dotenv").config()
+        let prefix = process.env.prefix
         if(message.isOwner == false && client.user.id == "855057364032684092") return;
          const economy = await client.models.economy.findOne({user: message.author.id})
          if(economy && !message.author.bot){
@@ -98,7 +99,7 @@ let [commandName, ...args] = message.content
         .split(/ +/);
       commandName = commandName.toLowerCase()
       args.clean = message.cleanContent.slice(prefix.length + commandName.length);
-      args.all = message.cleanContent.replace(`${prefix}${commandName}`, "").trim()
+      args.all = message.cleanContent.replace(`${prefix}${commandName}`, "")
       var command =
         client.commands.get(commandName) 
         if(!command){

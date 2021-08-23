@@ -10,7 +10,6 @@
     "@top-gg/sdk": "^3.1.2",
     "axios": "^0.21.1",
     "bad-words": "^3.0.4",
-    "canvas": "^2.8.0",
     "discord-anti-spam": "^2.5.1",
     "discord-buttons": "^3.2.1",
     "discord-giveaways": "^4.5.1",
