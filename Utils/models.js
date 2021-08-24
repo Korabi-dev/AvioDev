@@ -246,3 +246,11 @@ schema = Schema({
     }
 })
 exports.words = model("words", schema)
+
+schema = Schema({
+    guild: String,
+    enabled: Boolean,
+    channel: String
+})
+
+exports.chatbot = model("chatbot", schema)

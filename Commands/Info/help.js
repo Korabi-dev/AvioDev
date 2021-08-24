@@ -28,6 +28,7 @@ module.exports = {
   let config = []
   let leveling = []
   let economy = []
+  let chatbot = []
   client.commands.map(cmd => {
     all.push(cmd)
       if(!cmd.hide){
@@ -58,7 +59,9 @@ module.exports = {
                         economy.push(`\`${cmd.name}\``)
                           }else if(c == "leveling"){
                             leveling.push(`\`${cmd.name}\``)
-                              }
+                              }else if(c == "chatbot"){
+                                chatbot.push(`\`${cmd.name}\``)
+                                  }
       }
   })
 
@@ -79,6 +82,7 @@ const gv = giveaways.join(", ")
 const cg = config.join(", ")
 const ec = economy.join(", ")
 let lv = leveling.join(", ")
+const cb = chatbot.join(", ")
 if(economy.length > 0){
   embed.addField("💰 Economy:", ec)
 }
@@ -111,6 +115,9 @@ if(fun.length > 0){
 }
 if(leveling.length > 0){
   embed.addField("⬆ Leveling:", lv)
+}
+if(chatbot.length > 0){
+  embed.addField("🤖 Chat Bot:", cb)
 }
 if(all.length < 1){
     return message.reply(client.embed("Error", "No commands found."))
