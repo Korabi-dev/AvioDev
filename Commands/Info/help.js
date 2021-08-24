@@ -26,6 +26,7 @@ module.exports = {
   let giveaways = []
   let all = []
   let config = []
+  let leveling = []
   let economy = []
   client.commands.map(cmd => {
     all.push(cmd)
@@ -55,7 +56,9 @@ module.exports = {
                     config.push(`\`${cmd.name}\``)
                       }else if(c == "economy"){
                         economy.push(`\`${cmd.name}\``)
-                          }
+                          }else if(c == "leveling"){
+                            leveling.push(`\`${cmd.name}\``)
+                              }
       }
   })
 
@@ -75,6 +78,7 @@ const fn = fun.join(", ")
 const gv = giveaways.join(", ")
 const cg = config.join(", ")
 const ec = economy.join(", ")
+let lv = leveling.join(", ")
 if(economy.length > 0){
   embed.addField("💰 Economy:", ec)
 }
@@ -104,6 +108,9 @@ if(giveaways.length > 0){
 }
 if(fun.length > 0){
   embed.addField("🎡 Fun:", fn)
+}
+if(leveling.length > 0){
+  embed.addField("⬆ Leveling:", lv)
 }
 if(all.length < 1){
     return message.reply(client.embed("Error", "No commands found."))
