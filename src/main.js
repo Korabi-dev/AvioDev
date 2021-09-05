@@ -278,3 +278,4 @@ client.login(config.token).then(callback => {
     client.loadShop()
     console.log(`\nLoaded Commands: ${cmds}\nLoaded Events: ${events}\nLoaded Shop Items: ${items}\n`)
 })
+//Made By: Korabi
