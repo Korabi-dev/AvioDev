@@ -4,7 +4,6 @@ const client = new discord.Client();
 const { Manager } = require("erela.js")
 const Spotify = require("erela.js-spotify")
 client.commands = new discord.Collection();
-require("discord-buttons")(client)
 const AntiSpam = require("../Utils/antispam");
 process.on('unhandledRejection', error => {
 if(error.message.toLowerCase().includes("unknown") || error.message.toLowerCase().includes("discord")) {
