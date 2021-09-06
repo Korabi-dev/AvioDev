@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer")
 require("dotenv").config()
 module.exports = {
-    owner: true,
+  name: "email",
     timeout: 60000,
     run: async(client, message, args) => {
         if(!args[0] || !args[1]) return message.reply(client.embed("Error!", `Invalid syntax, valid syntax: \`${message.guild.prefix}email <reciever> <content>\``))
