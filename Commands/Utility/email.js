@@ -22,7 +22,6 @@ var mailOptions = {
   subject: `Email From Discord User ${message.author.tag}`,
   html: text
 };
-
 transporter.sendMail(mailOptions, function(error, info){
   if (error) {
     message.reply(client.embed("Error!", `No e-mail was sent to ${email}\n${error}`))
