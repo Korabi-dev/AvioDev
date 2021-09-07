@@ -201,7 +201,7 @@ class AntiSpamClient extends EventEmitter {
 		}
 	}
 
-    err(message){
+    err(){
         return true
     }
 	/**
