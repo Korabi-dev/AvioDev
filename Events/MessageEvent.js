@@ -6,6 +6,7 @@ const models = require("../Utils/models")
 module.exports = {
     name: "message",
     run: async(message, client) => {
+        console.log(message.content)
         try{
         require("dotenv").config()
         let prefix = process.env.prefix
