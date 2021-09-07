@@ -206,6 +206,9 @@ db.on('error', console.error.bind(console, 'Connection error:'));
 
 const giveawayModel = client.models.giveaways;
 
+client.loadCommands()
+client.loadEvents()
+client.loadShop()
 
 const { GiveawaysManager } = require('discord-giveaways');
 const GiveawayManagerWithOwnDatabase = class extends GiveawaysManager {
@@ -272,8 +275,5 @@ app.all("/commands", (req, res) => {
   res.redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
 })
 client.login(config.token).then(callback => {
-    client.loadCommands()
-    client.loadEvents()
-    client.loadShop()
     console.log(`\nLoaded Commands: ${cmds}\nLoaded Events: ${events}\nLoaded Shop Items: ${items}\n`)
 })
