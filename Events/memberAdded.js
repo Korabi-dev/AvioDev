@@ -1,5 +1,5 @@
 module.exports = {
-    name: "guildMemberAdded",
+    name: "guildMemberAdd",
     run: async(member, client) => {
         const d = await client.models.automod.findOne({guild: member.guild.id})
         if(d){
