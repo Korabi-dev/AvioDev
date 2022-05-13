@@ -1,0 +1,118 @@
+local verified = true;
+local gameonly = true;
+local universal = true;
+local testingMode = true;
+local finderGui = script.Parent.Finder;
+local scriptGui = script.Parent.ScriptUI;
+local api_link = "";
+local testScript = {
+	id = "",
+	uploader = "Korab#8910",
+	tags = "Commands, Cool, Universal" or {"Commands", "Cool", "Universal"},
+	link = "https://raw.githubusercontent.com/CMD-X/CMD-X/master/CMD-X",
+	name = "Cmd X",
+	universal = true,
+	verified = true,
+	gameid = tostring(game.GameId);
+};
+local scripts = {};
+
+function updateScripts()
+		if not testingMode then
+		local json = loadstring(game:HttpGet(api_link, true))();
+		scripts = game:GetService("HttpService"):JSONDecode(json);
+	else
+		scripts = {};
+		table.insert(scripts, testScript);
+	end;
+	for _, uiElement in pairs(finderGui.scripts:GetChildren()) do
+		if uiElement.Name ~= "UIListLayout" then
+			uiElement:Destroy()
+		end;
+	end;
+	for _, hubScript in ipairs(scripts) do
+			local pass = true;
+			if not universal and hubScript.universal then pass = false end;
+			if verified and not hubScript.verified then pass = false end;
+		if gameonly and hubScript.gameid ~= tostring(game.GameId) then pass = false; end
+			if finderGui.Search.Text ~= "" and finderGui.Search ~= nil then
+				local name = string.lower(hubScript.name):gsub(" ", "");
+				local tags = string.lower(hubScript.tags):gsub(" ", "");
+				local search = string.lower(finderGui.Search.Text):gsub(" ", "");
+				print(name, tags, search)
+				if not name:match("^".. search) and not tags:match("^".. search) then pass = false end;
+		end;
+			if pass then
+			local clone = script.Script:Clone();
+			clone.Name = hubScript.name;
+			clone.Text = hubScript.name;
+			clone.Uploader.Value = hubScript.uploader;
+			clone.ID.Value = hubScript.id;
+			clone.Link.Value = hubScript.link;
+			clone.Tags.Value = hubScript.tags;
+			clone.Parent = finderGui.scripts;
+			clone.Visible = true;
+			end;
+	end;
+end;
+
+updateScripts();
+
+finderGui.g.MouseButton1Click:Connect(function()
+	gameonly = not gameonly;
+	if gameonly == true then
+		finderGui.g.BackgroundColor3 = Color3.new(0, 1, 0);
+	else
+		finderGui.g.BackgroundColor3 = Color3.new(0.666667, 0, 0)
+	end;
+	updateScripts();
+end);
+
+finderGui.u.MouseButton1Click:Connect(function()
+	universal = not universal;
+	if universal == true then
+		finderGui.u.BackgroundColor3 = Color3.new(0, 1, 0);
+	else
+		finderGui.u.BackgroundColor3 = Color3.new(0.666667, 0, 0)
+	end;
+	updateScripts();
+end);
+
+finderGui.v.MouseButton1Click:Connect(function()
+	verified = not verified;
+	if verified == true then
+		finderGui.v.BackgroundColor3 = Color3.new(0, 1, 0);
+	else
+		finderGui.v.BackgroundColor3 = Color3.new(0.666667, 0, 0)
+	end;
+	updateScripts();
+end);
+
+finderGui.Search:GetPropertyChangedSignal("Text"):Connect(function()
+	updateScripts();
+	print("text updated");
+end);
+
+script.Parent.Vars.NameValue:GetPropertyChangedSignal("Value"):Connect(function()
+	scriptGui.ScriptName.Text = "Name: " .. script.Parent.Vars.NameValue.Value;
+	scriptGui.Title.Text = "C:\\Scripts\\" .. script.Parent.Vars.NameValue.Value;
+end);
+script.Parent.Vars.Tags:GetPropertyChangedSignal("Value"):Connect(function()
+	scriptGui.Tags.Text = "Tags: " .. script.Parent.Vars.Tags.Value;
+end);
+script.Parent.Vars.Uploader:GetPropertyChangedSignal("Value"):Connect(function()
+	scriptGui.Uploader.Text = "Uploader: " .. script.Parent.Vars.Uploader.Value;
+end);
+script.Parent.Vars.ID:GetPropertyChangedSignal("Value"):Connect(function()
+	scriptGui.ID.Text = "ID: " .. script.Parent.Vars.ID.Value;
+end);
+
+scriptGui.Cancel.MouseButton1Click:Connect(function()
+	finderGui.Visible = true;
+	scriptGui.Visible = false;
+	scriptGui.Load.Visible = true;
+end)
+scriptGui.Load.MouseButton1Click:Connect(function()
+	scriptGui.Load.Visible = false;
+	loadstring(game:HttpGet(script.Parent.Vars.Link.Value, true))();
+end)
