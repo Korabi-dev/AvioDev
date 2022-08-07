@@ -259,7 +259,7 @@ channel.send(`<@${vote.user}> has run a test and it suceeded.`)
   if(doc){
     doc.votes.push({time: Date.now()})
     doc.last = Date.now()
-    await doc.save()
+    await doc.save()// hi
   }else {
     const newd = new client.models.votes({
       user: vote.user,
